@@ -113,7 +113,7 @@ The Calendar Email configuration is based on the following properties:
 
 ---
 
-An example of email configuration, referencing the defaukt email templates is the following:
+An example of email configuration, referencing the default email templates is the following:
 
 ```json
 "email" : {
