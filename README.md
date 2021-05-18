@@ -33,7 +33,7 @@
 
 The Appointments Scheduler is a module of the Vivocha platform which allows to set and manage appointments with customers. Appointments can be both online and "physical", location-based.
 
-The Appointment Scheduler exposes a public and a private API, and also send emails to customers in different moments: to confirm the appointment, and two reminders.
+The Appointments Scheduler exposes a public and a private API, and also send emails to customers in different moments: to confirm the appointment, and two reminders.
 
 The Appointments Scheduler is based on three main entities: *Calendar*, *Appointment Type* and *Appointment*.
 
@@ -197,7 +197,7 @@ In case of an Appointment Type of `external` type, `settings` are the following,
 
 ---
 
-**About Action Handlers**: If set, the Appointment Scheduler calls the configured URLs corresponding to some of the steps in the Appointment lifecycle. It does it in the following way:
+**About Action Handlers**: If set, the Appointments Scheduler calls the configured URLs corresponding to some of the steps in the Appointment lifecycle. It does it in the following way:
 
 - doing a HTTP **`POST`** to configured URL
 - with **JSON body**:
