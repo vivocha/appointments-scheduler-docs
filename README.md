@@ -841,11 +841,11 @@ The Vivocha Interaction Engine has three new blocks dedicated to the Appointment
 
 ### Get Appointment Types (get-appointment-types)
 
-This block reads the Calendar linked to the current Campaign, and saves in the configured `temp.<tempName>` context property a list of strings containing the Appointment Types names, as defined in the Calendar. Then, the returned list of strings can be used to let customer choose a type of Appointment to book.
+This block reads the Calendar linked to the current Campaign, and saves in the configured `temp.<tempName>` context property an array of strings containing the Appointment Types names, as defined in the Calendar. If `tempName` is not configured, the list of Appointment Types names is saved in `temp.appointmentTypes` context property. Then, the returned list of strings can be used to let customers choose a type of Appointment to book.
 
 ### Get Availabilities (get-availabilities)
 
-This block, given the Calendar configured in the current Campaign and its configuration, computes all the available time slots for a particular Appointment Type, saving them in the configured `temp.<tempName>` context property.
+This block, given the Calendar configured in the current Campaign and its configuration, computes all the available time slots for a particular Appointment Type, saving them in the configured `temp.<tempName>` context property. If `tempName` is not configured, the computed availabilities are saved in `temp.availabilities` context property.
 
 The other block settings to configure are the following:
 
@@ -869,7 +869,7 @@ The other block settings to configure are the following:
 
 `days`: required, the data source (const value or a context data property) where to get the number of days (starting from and including the day in `fromDate`) to compute the time slots availabilities for the chosen Appointment Type.
 
-As written above, the computed availabilities are stored in the `temp.<tempName>` context property and they are an **array** of objects as follows:
+As written above, the computed availabilities are stored in the `temp.<tempName>` or `temp.availabilities` context property, and they are an **array** of objects as follows:
 
 ```javascript
 {
