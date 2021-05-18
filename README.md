@@ -35,7 +35,11 @@ The Appointments Scheduler is a module of the Vivocha platform which allows to s
 
 The Appointments Scheduler exposes a public and a private API, and also send emails to customers in different moments: to confirm the appointment, and two reminders.
 
-The Appointments Scheduler is based on three main entities: *Calendar*, *Appointment Type* and *Appointment*.
+The Appointments Scheduler is based on three main entities: *Calendar*, *Appointment Type* and *Appointment*, as shown in the next picture.
+
+| ![Appointments Scheduler Main Entities](https://raw.githubusercontent.com/vivocha/appointments-scheduler-docs/master/img/overview.svg?sanitize=true) |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                             **FIGURE 1 - Appointments Scheduler Main Entities/Concepts**                                             |
 
 This repository is structured as follows:
 
