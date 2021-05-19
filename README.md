@@ -912,7 +912,7 @@ This block accepts the following settings:
 If the appointment creation and setup are successful, then the new appointment data is saved to the `temp.<tempName>` context property or, if `tempName` setting is not specified, data is saved to `temp.appointment` script context data slot.
 The saved appointment data is an object with the following properties:
 
-```text
+```json
 {
   id: "<string id>",
   type: "<appointment type string>",
@@ -929,7 +929,7 @@ The saved appointment data is an object with the following properties:
 In case of an *External* Appointment, the saved data object has also the `location` property, set to the location of the appointment, if available.
 The `location` property is an object like the following:
 
-```text
+```json
 {
   name: "<location name, string>",
   latitude: <number>,
