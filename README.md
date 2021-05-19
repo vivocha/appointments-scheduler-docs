@@ -921,7 +921,7 @@ The saved appointment data is an object with the following properties:
   timezone: "<string, timezone of the appointment, if set>",
   fromDate: "<appointment start date, UTC based, ISO 8601 date-time string>",
   toDate: "<appointment end date, UTC based, ISO 8601 date-time string>",
-  duration: <number, the duration of the appointment>,
+  duration: "<number, the duration of the appointment>",
   code: "<appointment unique code>"
 }
 ```
@@ -932,8 +932,8 @@ The `location` property is an object like the following:
 ```javascript
 {
   name: "<location name, string>",
-  latitude: <number>,
-  longitude: <number>,
+  latitude: "<number>",
+  longitude: "<number>",
   googlePlaceId: "<string>",
   countryCode: "<string>",
   countryName: "<string>",
