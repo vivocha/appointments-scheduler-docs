@@ -883,9 +883,11 @@ As written above, the computed availabilities are stored in the `temp.<tempName>
 ### Set Appointment (set-appointment)
 
 Given a date-time slot, this block creates a new Appointment in the Calendar.
-If, during the potentially concurrent Appointment creation, the date-time slot isn't longer available, the block exists through the configured `dateNotAvailable` output.
+If, during the potentially concurrent Appointment creation, the date-time slot isn't longer available, the block exits through the configured `dateNotAvailable` output.
 
 This block accepts the following settings:
+
+`tempName`: optional, the context temp data slot name to save the created appointment data, if successful;
 
 `appointmentType`: required, the data source (const value or a context data property) where to get the Appointment Type name as a string;
 
@@ -906,3 +908,37 @@ This block accepts the following settings:
 `tags`: optional (**currently not used**), data source (const value or a context data property) where to get routing tags;
 
 `exclusiveAgents`: optional (**currently not used**), data source (const value or a context data property) where to get exclusive agents ids.
+
+If the appointment creation and setup are successful, then the new appointment data is saved to the `temp.<tempName>` context property or, if `tempName` setting is not specified, data is saved to `temp.appointment` script context data slot.
+The saved appointment data is an object with the following properties:
+
+```text
+{
+  id: "<string id>",
+  type: "<appointment type string>",
+  summary: "<string, appointment summary>",
+  description: "<string, appointment description, if set>",
+  timezone: "<string, timezone of the appointment, if set>",
+  fromDate: "<appointment start date, UTC based, ISO 8601 date-time string>",
+  toDate: "<appointment end date, UTC based, ISO 8601 date-time string>",
+  duration: <number, the duration of the appointment>,
+  code: "<appointment unique code>"
+}
+```
+
+In case of an *External* Appointment, the saved data object has also the `location` property, set to the location of the appointment, if available.
+The `location` property is an object like the following:
+
+```text
+{
+  name: "<location name, string>",
+  latitude: <number>,
+  longitude: <number>,
+  googlePlaceId: "<string>",
+  countryCode: "<string>",
+  countryName: "<string>",
+  region: "<string>",
+  address: "<string>",
+  city: "<string>"
+}
+```
