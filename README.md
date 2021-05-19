@@ -1,6 +1,6 @@
 # Vivocha Appointments Scheduler Technical and API Documentation
 
-*version 1.0.0* - last edit: *18/05/2021*
+*version 1.0.1* - last edit: *19/05/2021*
 
 ---
 
