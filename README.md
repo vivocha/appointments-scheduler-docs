@@ -1,5 +1,9 @@
 # Vivocha Appointments Scheduler Technical and API Documentation
 
+| ![Logo](https://raw.githubusercontent.com/vivocha/extension-sdk/master/img/logo.png?sanitize=true) |
+| :------------------------------------------------------------------------------------------------: |
+|                             *version 1.0.1* - last edit: *19/05/2021*                              |
+
 *version 1.0.1* - last edit: *19/05/2021*
 
 ---
