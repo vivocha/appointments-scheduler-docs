@@ -737,7 +737,7 @@ To create an Appointment the JSON body MUST include the following properties:
 
 Examples of create an Appointment JSON body contents follows.
 
-###### JSON body to create a new *Vivocha* appointment**
+###### JSON body to create a new *Vivocha* appointment
 
 ```json
 {  
@@ -758,7 +758,7 @@ Examples of create an Appointment JSON body contents follows.
 }
 ```
 
-###### JSON body to create a new *External* appointment**
+###### JSON body to create a new *External* appointment
 
 ```json
 {  
