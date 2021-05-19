@@ -1,4 +1,6 @@
-# Vivocha Appointments Scheduler Technical and API Documentation
+# Vivocha Appointments Scheduler
+
+## Technical and API Documentation
 
 | ![Logo](https://github.com/vivocha/appointments-scheduler-docs/blob/master/img/logo.png?raw=true) |
 | :-----------------------------------------------------------------------------------------------: |
