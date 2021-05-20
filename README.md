@@ -76,7 +76,7 @@ In the current version of the Appointments Scheduler, a Calendar has the followi
 | `name`             | string                           | The name of the Calendar                                                                                                                            |
 | `description`      | (optional) string                | free text description                                                                                                                               |
 | `company`          | (optional) string                | The name of the company that will be also exported in the iCal format and eventually used in the emails sent to the customers. Default is `Vivocha` |
-| `timezone`         | string                           | Timezone string in IANA format, like `Europe/Rome`                                                                                                  |
+| `timezone`         | string                           | [Timezone string in IANA format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), like `Europe/Rome`                                  |
 | `language`         | (optional) string                | Calendar language string, like `en`, `it`, `fr`. Default is `en`                                                                                    |
 | `media`            | string                           | Calendar starting media, like `chat`                                                                                                                |
 | `appointmentTypes` | array of AppointmentType objects | the appointment types that can be set in the specific Calendar, see dedicated section below                                                         |
