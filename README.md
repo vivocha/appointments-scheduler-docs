@@ -715,6 +715,18 @@ Available query parameters are:
 
 ## Appointment API
 
+The Appointment API allows to manage Appointments and actions on them.
+Private endpoints are authenticated.
+
+Base URL: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
+
+All API endpoints accept JSON bodies, when applicable. Most of them return responses in JSON format, when applicable and where not explicitely documented.
+Full, parsable, API documentation is always available in OpenAPI 3.x format at URL:
+
+`https://{vivocha-world}.vivocha.com/a/{account}/api/v3/openapi.json`
+
+>**IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
+
 ### Appointment Private Endpoints
 
 #### CRUD
