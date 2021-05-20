@@ -101,11 +101,12 @@ Calendar Configuration properties follow:
 
 #### Email Configuration
 
-The Appointments scheduler sends some emails to customers, in different moments:
+The Appointments scheduler sends some emails to the customers involved in appointments. Emails are sent in different moments:
 
 - when the appointment is created and set, with links to download an iCal file and to cancel the appointment
 - one hour before the appointment, as a reminder, with the option to cancel the appointment
 - ten minutes before the appointment, as a reminder, with the option to cancel the appointment and, only in case of a Vivocha (online) appointment type, a link to join the appointment with an agent at the set date/hour.
+- moreover, an email is also sent if the customer cancels the appointment at any moment. In that case, reminders will not be sent anymore.
 
 The Appointments Scheduler uses **AWS SES service** to send the required emails, and they are based on templates ([find more here](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-personalized-email-api.html)). Thus, it is necessary, as a first step, to upload all the required custom AWS SES templates before configuring a Calendar, otherwise the Vivocha default templates will be automatically used to compose emails.
 
