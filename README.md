@@ -219,17 +219,17 @@ In case of an Appointment Type of `external` type, `settings` are the following,
 
 Being an external appointment based on a physical location or place, the Appointment Type `location` setting defines the properties in the next table. In this case, location data is also used in emails sent to customers.
 
-| PROPERTY        | VALUE             | DESCRIPTION                          |
-| --------------- | ----------------- | ------------------------------------ |
-| `name`          | string            | name of the place / location         |
-| `latitude`      | (optional) number | latitude                             |
-| `longitude`     | (optional) number | longitude                            |
-| `googlePlaceId` | (optional) string | Google Place ID (currently not used) |
-| `countryCode`   | (optional) string | country code                         |
-| `countryName`   | (optional) string | name of the country                  |
-| `region`        | (optional) string | region name                          |
-| `address`       | string            | address of the place                 |
-| `city`          | string            | city name                            |
+| PROPERTY        | VALUE             | DESCRIPTION                                                                              |
+| --------------- | ----------------- | ---------------------------------------------------------------------------------------- |
+| `name`          | string            | name of the place / location                                                             |
+| `latitude`      | (optional) number | latitude                                                                                 |
+| `longitude`     | (optional) number | longitude                                                                                |
+| `googlePlaceId` | (optional) string | Google Place Id, if set it will be used instead of address in the vivocha default emails |
+| `countryCode`   | (optional) string | country code                                                                             |
+| `countryName`   | (optional) string | name of the country                                                                      |
+| `region`        | (optional) string | region name                                                                              |
+| `address`       | string            | address of the place                                                                     |
+| `city`          | string            | city name                                                                                |
 
 ---
 
@@ -532,8 +532,7 @@ Example of JSON body:
             "settings" : {
                 "location" : {
                     "name" : "Covisian HQ Milano",
-                    "latitude" : 45.5004000552936,
-                    "longitude" : 9.2284390454376,
+                    "googlePlaceId" : "ChIJAcOI_hrHhkcRp52QNE3bo6E",
                     "address" : "Via Valtorta, 45, 20127",
                     "city" : "Milano (MI)"
                 }
@@ -856,6 +855,10 @@ where `status` is a string that can be one of the following values: `OK`, `EARLY
 ## Interaction Engine Blocks
 
 The Vivocha Interaction Engine has three new blocks dedicated to the Appointments Scheduler.
+
+Moreover, it is possible to change the current calendar to be used by the following blocks. Reading the current Calendar Id it is possible accessing the `calendar.id` context property.
+
+Setting that property in a SetData Block with another Calendar Id results in changing the Calendar for the current conversation. Obviously, the starting Calendar Id is the one linked to the referenced Campaign, if set.
 
 ### Get Appointment Types (get-appointment-types)
 
