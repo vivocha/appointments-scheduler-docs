@@ -43,9 +43,9 @@ The Appointments Scheduler exposes a public and a private API, and also send ema
 
 The Appointments Scheduler is based on three main entities: *Calendar*, *Appointment Type* and *Appointment*, as shown in the next picture.
 
-| ![Appointments Scheduler Main Entities](https://raw.githubusercontent.com/vivocha/appointments-scheduler-docs/master/img/overview.svg?token=ABCZNYU67KMLGBLI7DCM5IDAVT4UI&sanitize=true) |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                               **FIGURE 1 - Appointments Scheduler Main Entities/Concepts**                                                               |
+| ![Appointments Scheduler Main Entities](https://github.com/vivocha/appointments-scheduler-docs/blob/master/img/overview.svg?sanitize=true) |
+| :----------------------------------------------------------------------------------------------------------------------------------------: |
+|                                        **FIGURE 1 - Appointments Scheduler Main Entities/Concepts**                                        |
 
 This repository is structured as follows:
 
