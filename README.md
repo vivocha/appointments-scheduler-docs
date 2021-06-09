@@ -308,8 +308,6 @@ Base URL for private endpoints: `https://{vivocha-world}.vivocha.com/a/{account}
 
 Base URL for public endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/public`
 
-### Calendar Private Endpoints
-
 All API endpoints accept JSON bodies, when applicable. Most of them return responses in JSON format, when applicable and where not explicitely documented.
 Full, parsable, API documentation is always available in OpenAPI 3.x format at URLs:
 
@@ -318,6 +316,10 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/public/openapi.json`
 
 >**IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
+
+### Calendar Private Endpoints
+
+
 
 #### CRUD
 
