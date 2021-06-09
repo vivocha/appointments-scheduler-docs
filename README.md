@@ -45,7 +45,7 @@ The Appointments Scheduler is based on three main entities: *Calendar*, *Appoint
 
 | ![Appointments Scheduler Main Entities](https://github.com/vivocha/appointments-scheduler-docs/blob/master/img/overview.svg?sanitize=true) |
 | :----------------------------------------------------------------------------------------------------------------------------------------: |
-|                                        **FIGURE 1 - Appointments Scheduler Main Entities/Concepts**                                        |
+|                                       **FIGURE 1 - Appointments Scheduler Main Entities and Model**                                        |
 
 This repository is structured as follows:
 
@@ -65,7 +65,7 @@ Along with several basic properties, like name, timezone, language, and so on...
 For example, a *Tax Consultancy* Calendar could define some Appointment Types like: *Private support*, *Company support*, and so on...
 A Calendar can accept the booking of appointments only of the types it explicitely defines.
 
-A Calendar can be exported and "read" by its *iCalendar* representation.
+A Calendar can be exported and "read" by its *iCalendar* representation by the API. It is useful to subscribe to a particular Calendar through a Calendar App (like Apple Calendar and others...) using that clients as a refresheable view on the Calendar Appontments (see more in the dedicatet API endpoint, [here](#calendar-public-endpoints)).
 
 In the current version of the Appointments Scheduler, a Calendar has the following properties:
 
@@ -304,14 +304,18 @@ After an Appointment has been created and set, it has a set of properties that r
 The Calendar API allows to manage Calendars and actions on them.
 Private endpoints are authenticated.
 
+Base URL for private endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
+
+Base URL for public endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/public`
+
 ### Calendar Private Endpoints
 
-Base URL: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
-
 All API endpoints accept JSON bodies, when applicable. Most of them return responses in JSON format, when applicable and where not explicitely documented.
-Full, parsable, API documentation is always available in OpenAPI 3.x format at URL:
+Full, parsable, API documentation is always available in OpenAPI 3.x format at URLs:
 
 `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/openapi.json`
+
+`https://{vivocha-world}.vivocha.com/a/{account}/api/v3/public/openapi.json`
 
 >**IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
 
@@ -718,12 +722,16 @@ Available query parameters are:
 The Appointment API allows to manage Appointments and actions on them.
 Private endpoints are authenticated.
 
-Base URL: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
+Base URL for private endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
+
+Base URL for public endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/public`
 
 All API endpoints accept JSON bodies, when applicable. Most of them return responses in JSON format, when applicable and where not explicitely documented.
-Full, parsable, API documentation is always available in OpenAPI 3.x format at URL:
+Full, parsable, API documentation is always available in OpenAPI 3.x format at URLs:
 
 `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/openapi.json`
+
+`https://{vivocha-world}.vivocha.com/a/{account}/api/v3/public/openapi.json`
 
 >**IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
 
