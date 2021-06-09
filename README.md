@@ -709,11 +709,11 @@ Get a Calendar in iCal format, only.
 
 Available query parameters are:
 
-`format=ical`: mandatory and it must be set to `ical`. Use optional `from` and `to` parameters to specify a time range to include appointments set in;
+`format=ical`: mandatory, and it must be set to `ical`. Use optional `from` and `to` parameters to specify a time range to include appointments set in;
 
-`from`: UTC ISO 8601 date string to include appointments set starting from that date;
+`from`: optional, UTC ISO 8601 date string to include appointments set starting from that date; if parameter isn't provided, then UTC *now* is used;
 
-`to`: UTC ISO 8601 date string to including appointments set before that date;
+`to`: optional, UTC ISO 8601 date string to including appointments set before that date; if parameter isn't provided, `to` is computed as `from + 1 month`.
 
 ---
 
