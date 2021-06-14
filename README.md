@@ -6,7 +6,7 @@
 | :-----------------------------------------------------------------------------------------------: |
 |                                                                                                   |
 
-*version 1.0.3* - last edit: *25/05/2021*
+*version 1.1.0* - last edit: *14/06/2021*
 
 ---
 
@@ -319,8 +319,6 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 
 ### Calendar Private Endpoints
 
-
-
 #### CRUD
 
 ##### GET `/calendars`
@@ -621,6 +619,19 @@ Example of a body request:
 
 Delete a Calendar.
 
+##### GET `/calendars/{id}/actions/get-ical-url`
+
+Return an object containing the Calendar complete URL endpoint to be used to download it in iCalendar format, or to be used to subscribe to the Calendar by a Calendar application client.
+The returned URL contains a `token` parameter already set.
+
+This endpoint returns a JSON like the following:
+
+```json
+{
+    "url": "https://www.vivocha.com/.../.../calendars/..."
+}
+```
+
 #### Availabilities
 
 The following endpoint allows to know the available slots for a calendar, given an Appointment Type. The availabilities algorithm takes into consideration the already scheduled appointments, the appointment type, dates, days and configured availability hours.
@@ -707,11 +718,15 @@ The available, optional, query params are the following:
 
 #### GET `/calendars/{id}?format=ical`
 
-Get a Calendar in iCal format, only.
+Get a Calendar in iCalendar format, only.
+
+This endpoint requires a valid `token` parameter. To get the endopoint URL with a valid token, it must be called the `/calendars/{id}/actions/get-ical-url` API endpoint (see [Calendar API Private Endpoints](#calendar-private-endpoints)).
 
 Available query parameters are:
 
 `format=ical`: mandatory, and it must be set to `ical`. Use optional `from` and `to` parameters to specify a time range to include appointments set in;
+
+`token`: mandatory, authorization token, call the `/calendars/{id}/actions/get-ical-url` API endpoint to obtain it, along with the complete Calendar URL to call (see [Calendar API Private Endpoints](#calendar-private-endpoints));
 
 `from`: optional, UTC ISO 8601 date string to include appointments set starting from that date; if parameter isn't provided, then UTC *now* is used;
 
