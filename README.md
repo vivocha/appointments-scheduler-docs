@@ -646,7 +646,7 @@ Get a JSON object with availabilities.
 
 `appointmentType`: the Appointment Type name, as defined in the Calendar, to get availaibilities for;
 
-`startDate`: the date to start computing availabilities from. It MUST be in UTC and in ISO 8601 format;
+`startDate`: the date to start computing availabilities from. It MUST be in UTC and in ISO 8601 format; `startDate` can't be a date-time in the past. If the provided ISO 8601 date string refers to a date in the past then UTC now date is used as start date, automatically;
 
 `days`: the number of days, including the day in `startDate` param, to include in availabilities computing;
 
@@ -698,6 +698,30 @@ And an example of response:
     "from": "2021-05-11T07:00:00.000Z",
     "to": "2021-05-11T07:30:00.000Z"
   }
+]
+```
+
+If the specified `appointmentType` parameter refers to an Appointment Type which has the `paddingAfter` property set, then the returned availabilities slots include also the `paddingAfter` property, like in the following example:
+
+```json
+[
+  {
+    "from": "2021-06-24T14:00:00.000Z",
+    "to": "2021-06-24T14:30:00.000Z",
+    "paddingAfter": 10
+  },
+  {
+    "from": "2021-06-25T07:00:00.000Z",
+    "to": "2021-06-25T07:30:00.000Z",
+    "paddingAfter": 10
+  },
+  {
+    "from": "2021-06-25T07:40:00.000Z",
+    "to": "2021-06-25T08:10:00.000Z",
+    "paddingAfter": 10
+  },
+
+  ...
 ]
 ```
 
