@@ -6,7 +6,7 @@
 | :-----------------------------------------------------------------------------------------------: |
 |                                                                                                   |
 
-*version 1.1.0* - last edit: *14/06/2021*
+*version 1.2.0* - last edit: *24/06/2021*
 
 ---
 
@@ -174,8 +174,8 @@ An Appointment Type defines several properties, summarized by the next table:
 | `color`                     | (optional) string          | Hex number string of the color to associate to the appointment type                                                                                                                                                                                                                 |
 | `timezone`                  | (optional) string          | [Timezone in IANA format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for the specific Appointment Type, if not specified it will be used the one defined globally in the Calendar                                                                                |
 | `duration`                  | number, integer            | the duration of the appointment, in minutes                                                                                                                                                                                                                                         |
-| `paddingBefore`             | (optional) number, integer | extra time to take into consideration before the starting time of the appointment, in minutes (currently not used)                                                                                                                                                                  |
-| `paddingAfter`              | (optional) number, integer | extra time to take into consideration after the end time of the appointment, in minutes (currently not used)                                                                                                                                                                        |
+| `paddingBefore`             | (optional) number, integer | extra time to take into consideration before the starting date-time of the appointment, in minutes (currently not used)                                                                                                                                                             |
+| `paddingAfter`              | (optional) number, integer | extra time to take into consideration after the end date-time of the appointment, in minutes. If set, the duration of the appointment will be the same, but the allocated time slot will be `duration + paddingAfter`                                                               |
 | `validity`                  | (optional) object          | validity represents the interval of time when an appointment joining/landing can be considered valid before considering the customer in late or too early. The validity object has the following optional two properties: `before` and `after`, both numbers, expressed in minutes. |
 | `isActive`                  | (optional) boolean         | an Appointment type can be deactivated (currently not used)                                                                                                                                                                                                                         |
 | `availabilityHours`         | (optional) object          | like the Calendar's availability hours but only `exceptions` can be configured in an Appointment Type. It can be used to restrict the availabilities for the particular type. E.g. to configure to not accept appointments of the specific type on Mondays, or on every afternoon.  |
@@ -581,7 +581,7 @@ Example of JSON body:
 
 Get a specific Calendar in JSON.
 
-If `format` query parameter is used and set to `iCal`, then the Calendar will be returned in iCal format, including the not already coompleted appointments set in the specified dates interval.
+If `format` query parameter is used and set to `ical`, then the Calendar will be returned in iCalendar format, including the not already completed appointments set in the specified dates interval.
 
 Available query parameters are:
 
@@ -590,6 +590,8 @@ Available query parameters are:
 `from`: UTC ISO 8601 date string to include appointments set starting from that date;
 
 `to`: UTC ISO 8601 date string to including appointments set before that date;
+
+`padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. This parameter takes effect only when `format` parameter is set to `ical`. If set to false or not specified, then the event doesn't include the padding in the iCalendar format
 
 ##### PUT `/calendars/{id}`
 
@@ -730,7 +732,9 @@ Available query parameters are:
 
 `from`: optional, UTC ISO 8601 date string to include appointments set starting from that date; if parameter isn't provided, then UTC *now* is used;
 
-`to`: optional, UTC ISO 8601 date string to including appointments set before that date; if parameter isn't provided, `to` is computed as `from + 1 month`.
+`to`: optional, UTC ISO 8601 date string to including appointments set before that date; if parameter isn't provided, `to` is computed as `from + 1 month`;
+
+`padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. If set to false or not specified, then the event doesn't include the padding in the iCalendar format.
 
 ---
 
