@@ -617,7 +617,7 @@ Example of a body request:
 ]
 ```
 
-Another example, referencing an array item (an Appointment Type, in this case):
+Another example, referencing an array item (an Appointment Type to change the `paddingAfter` property value, in this case):
 
 ```json
 [
