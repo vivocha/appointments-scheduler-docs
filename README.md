@@ -617,6 +617,18 @@ Example of a body request:
 ]
 ```
 
+Another example, referencing an array item (an Appointment Type, in this case):
+
+```json
+[
+  {
+    "op": "replace",
+    "path" : "/appointmentTypes/0/paddingAfter",
+    "value" : 10
+  }
+]
+```
+
 ##### DELETE `/calendars/{id}`
 
 Delete a Calendar.
