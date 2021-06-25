@@ -31,6 +31,9 @@
   - [Private Endpoints](#appointment-private-endpoints)
   - [Public Endpoints](#appointment-public-endpoints)
 - [Interaction Engine Blocks](#interaction-engine-blocks)
+  - [Get Appointments Types](#get-appointment-types)
+  - [Get Availabilities](#get-availabilities)
+  - [Set Appointment](#set-appointment)
 
 ---
 ---
@@ -937,13 +940,13 @@ Moreover, it is possible to change the current calendar to be used by the follow
 
 Setting that property in a SetData Block with another Calendar Id results in changing the Calendar for the current conversation. Obviously, the starting Calendar Id is the one linked to the referenced Campaign, if set.
 
-### Get Appointment Types (get-appointment-types)
+### Get Appointment Types
 
-This block reads the Calendar linked to the current Campaign, and saves in the configured `temp.<tempName>` context property an array of strings containing the Appointment Types names, as defined in the Calendar. If `tempName` is not configured, the list of Appointment Types names is saved in `temp.appointmentTypes` context property. Then, the returned list of strings can be used to let customers choose a type of Appointment to book.
+This block (*get-appointment-types*) reads the Calendar linked to the current Campaign, and saves in the configured `temp.<tempName>` context property an array of strings containing the Appointment Types names, as defined in the Calendar. If `tempName` is not configured, the list of Appointment Types names is saved in `temp.appointmentTypes` context property. Then, the returned list of strings can be used to let customers choose a type of Appointment to book.
 
-### Get Availabilities (get-availabilities)
+### Get Availabilities
 
-This block, given the Calendar configured in the current Campaign and its configuration, computes all the available time slots for a particular Appointment Type, saving them in the configured `temp.<tempName>` context property. If `tempName` is not configured, the computed availabilities are saved in `temp.availabilities` context property.
+This block (*get-availabilities*), given the Calendar configured in the current Campaign and its configuration, computes all the available time slots for a particular Appointment Type, saving them in the configured `temp.<tempName>` context property. If `tempName` is not configured, the computed availabilities are saved in `temp.availabilities` context property.
 
 The other block settings to configure are the following:
 
@@ -979,9 +982,9 @@ As written above, the computed availabilities are stored in the `temp.<tempName>
 }
 ```
 
-### Set Appointment (set-appointment)
+### Set Appointment
 
-Given a date-time slot, this block creates a new Appointment in the Calendar.
+Given a date-time slot, this block (*set-appointment*) creates a new Appointment in the Calendar.
 If, during the potentially concurrent Appointment creation, the date-time slot isn't longer available, the block exits through the configured `dateNotAvailable` output.
 
 This block accepts the following settings:
