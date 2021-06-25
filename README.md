@@ -301,8 +301,9 @@ After an Appointment has been created and set, it has a set of properties that r
 
 ## Calendar API
 
-The Calendar API allows to manage Calendars and actions on them.
-Private endpoints are authenticated.
+The Calendar API allows to manage Calendars and perform actions on them.
+
+**Private endpoints are authenticated**.
 
 Base URL for private endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
 
@@ -316,6 +317,7 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/public/openapi.json`
 
 >**IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
+>**IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
 
 ### Calendar Private Endpoints
 
@@ -791,6 +793,7 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/public/openapi.json`
 
 >**IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
+>**IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
 
 ### Appointment Private Endpoints
 
