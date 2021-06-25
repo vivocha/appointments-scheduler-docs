@@ -650,7 +650,16 @@ This endpoint returns a JSON like the following:
 
 #### Availabilities
 
-The following endpoint allows to know the available slots for a calendar, given an Appointment Type. The availabilities algorithm takes into consideration the already scheduled appointments, the appointment type, dates, days and configured availability hours.
+The following endpoint allows to know the available slots in a Calendar, given an Appointment Type. The availabilities algorithm takes into consideration the already scheduled appointments, the appointment type, dates, days and configured availability hours.
+
+The current version the availabilities algorithm works as follows:
+
+- the starting date is the specified one, if it is in the present or future; otherwise, if it is in the past, then UTC *now* is automatically used, instead;
+- the minimum days of calculation is 1;
+- if starting date refers to the current (*now*) date and hour, if minutes are > 0, then it starts from the same day, next hour;
+- it partitions the day in slots having the same height, equal to the appointment duration (+ padding after value, if specified);
+- finally, it excludes the slots which already have the relative maximum number of concurrent appointments, or they don't satisfy the availabilityHours; if a slot is rejected, next processed slot will be the one after previous slot's *start date + duration + (padding after, if set)*;
+- valid, resulting, available slots are returned for the number of specified days.
 
 ##### GET `/calendars/{id}/availabilities?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>&days=<days>`
 
