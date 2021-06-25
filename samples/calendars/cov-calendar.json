@@ -1,0 +1,239 @@
+{
+  "name": "Covisian Calendar",
+  "description": "A sample test calendar",
+  "media": "chat",
+  "timezone": "Europe/Rome",
+  "language": "en",
+  "company": "Covisian",
+  "configuration": {
+    "maxConcurrentAppointments": 3,
+    "availabilityHours": {
+      "intervals": [
+        {
+          "dayOfWeek": {
+            "from": 1,
+            "to": 5
+          },
+          "hours": {
+            "from": 9,
+            "to": 17
+          }
+        },
+        {
+          "dayOfMonth": {
+            "from": 28,
+            "to": 28
+          },
+          "month": {
+            "from": 5,
+            "to": 5
+          },
+          "year": {
+            "from": 2021,
+            "to": 2021
+          },
+          "hours": {
+            "from": 9,
+            "to": 17
+          },
+          "minutes": {
+            "from": 15
+          }
+        }
+      ],
+      "exceptions": [
+        {
+          "dayOfMonth": {
+            "from": 12,
+            "to": 12
+          },
+          "month": {
+            "from": 5,
+            "to": 5
+          },
+          "year": {
+            "from": 2021,
+            "to": 2021
+          }
+        },
+        {
+          "dayOfMonth": {
+            "from": 16,
+            "to": 16
+          },
+          "month": {
+            "from": 5,
+            "to": 5
+          },
+          "year": {
+            "from": 2021,
+            "to": 2021
+          },
+          "hours": {
+            "from": 9,
+            "to": 13
+          }
+        },
+        {
+          "dayOfMonth": {
+            "from": 26,
+            "to": 26
+          },
+          "month": {
+            "from": 5,
+            "to": 5
+          },
+          "year": {
+            "from": 2021,
+            "to": 2021
+          },
+          "hours": {
+            "from": 9,
+            "to": 13
+          }
+        },
+        {
+          "dayOfMonth": {
+            "from": 27,
+            "to": 27
+          },
+          "month": {
+            "from": 5,
+            "to": 5
+          },
+          "year": {
+            "from": 2021,
+            "to": 2021
+          }
+        }
+      ]
+    },
+    "email": {
+      "senderAddress": "mobile@vivocha.com",
+      "template": {
+        "templateName": {
+          "customerNewAppointment": {
+            "en": "VivochaDefaultTemplateEN"
+          },
+          "customerCancelAppointment": {
+            "en": "VivochaDefaultCancelledTemplateEN"
+          },
+          "customerRemindAppointment": {
+            "en": "VivochaDefaultCustRemindTemplateEN"
+          },
+          "customerLandingRemindAppointment": {
+            "en": "VivochaDefaultCustLandingRemindTemplateEN"
+          }
+        }
+      }
+    },
+    "webTemplates": {
+      "appointmentCancelled": {
+        "en": "Your appointment has been successfully cancelled. You will receive a confirmation email very soon. Thank you.",
+        "it": "Il tuo appuntamento è stato cancellato, riceverai una email di conferma al più presto. Grazie."
+      }
+    },
+    "landingPageUrl": "https://myline.vivocha.com/l/en/areariservata"
+  },
+  "appointmentTypes": [
+    {
+      "name": "Service VVC-A",
+      "type": "vivocha",
+      "description": "Vivocha Service A",
+      "color": "#4287f5",
+      "timezone": "Europe/Rome",
+      "duration": 30,
+      "paddingAfter": 5,
+      "isActive": true,
+      "maxConcurrentAppointments": 3
+    },
+    {
+      "name": "Service VVC-B",
+      "type": "vivocha",
+      "description": "Vivocha Service B",
+      "color": "#f57960",
+      "timezone": "Europe/Rome",
+      "duration": 40,
+      "isActive": true,
+      "maxConcurrentAppointments": 3
+    },
+    {
+      "name": "Service VVC-C",
+      "type": "vivocha",
+      "description": "Vivocha Service C",
+      "color": "#098765",
+      "timezone": "Europe/Rome",
+      "duration": 120,
+      "isActive": true,
+      "maxConcurrentAppointments": 2,
+      "availabilityHours": {
+        "exceptions": [
+          {
+            "dayOfWeek": {
+              "from": 1,
+              "to": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Service Ext-MI",
+      "type": "external",
+      "description": "External Service Covisian MI",
+      "color": "#098765",
+      "timezone": "Europe/Rome",
+      "duration": 60,
+      "isActive": true,
+      "maxConcurrentAppointments": 4,
+      "availabilityHours": {
+        "exceptions": [
+          {
+            "dayOfWeek": {
+              "from": 5,
+              "to": 5
+            }
+          }
+        ]
+      },
+      "settings": {
+        "location": {
+          "name": "Covisian HQ Milano",
+          "googlePlaceId": "ChIJAcOI_hrHhkcRp52QNE3bo6E",
+          "address": "Via Valtorta, 45, 20127",
+          "city": "Milano (MI)"
+        }
+      }
+    },
+    {
+      "name": "Service Ext-TO",
+      "type": "external",
+      "description": "External Service Covisian TO",
+      "color": "#098765",
+      "timezone": "Europe/Rome",
+      "duration": 60,
+      "isActive": true,
+      "maxConcurrentAppointments": 1,
+      "availabilityHours": {
+        "exceptions": [
+          {
+            "dayOfWeek": {
+              "from": 2,
+              "to": 2
+            }
+          }
+        ]
+      },
+      "settings": {
+        "location": {
+          "name": "Covisian Torino",
+          "latitude": 45.1099096165107,
+          "longitude": 7.67131732714931,
+          "address": "Via Paolo Veronese, 250, 10148",
+          "city": "Torino (TO)"
+        }
+      }
+    }
+  ],
+  "enabled": true
+}
