@@ -42,7 +42,7 @@
 
 The Appointments Scheduler is a module of the Vivocha platform which allows to set and manage appointments with customers. Appointments can be both online and "physical", location-based.
 
-The Appointments Scheduler exposes a public and a private API, and also send emails to customers in different moments: to confirm the appointment, and two reminders.
+The Appointments Scheduler exposes a public and a private API, and also can send emails to customers in different moments: to confirm the appointment, and two reminders.
 
 The Appointments Scheduler is based on three main entities: *Calendar*, *Appointment Type* and *Appointment*, as shown in the next picture.
 
@@ -936,9 +936,9 @@ where `status` is a string that can be one of the following values: `OK`, `EARLY
 
 The Vivocha Interaction Engine has three new blocks dedicated to the Appointments Scheduler.
 
-Moreover, it is possible to change the current calendar to be used by the following blocks. Reading the current Calendar Id it is possible accessing the `calendar.id` context property.
+Moreover, it is possible to change the current calendar to be used by the following blocks. It is possible to read the current Calendar Id accessing the `calendar.id` script context property.
 
-Setting that property in a SetData Block with another Calendar Id results in changing the Calendar for the current conversation. Obviously, the starting Calendar Id is the one linked to the referenced Campaign, if set.
+Setting that property in a *SetData Block* with another Calendar Id, results in changing the Calendar for the current conversation. Obviously, the starting Calendar Id is the one linked to the referenced Campaign, if set.
 
 ### Get Appointment Types
 
