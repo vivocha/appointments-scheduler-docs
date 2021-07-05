@@ -1,0 +1,379 @@
+{
+  "type": "main",
+  "name": "56-Appointments-Scheduler-Change-Calendar",
+  "description": "Appointment Scheduler with Calendar changing",
+  "start": "1618856011095",
+  "strings": [],
+  "blocks": [
+    {
+      "id": "1618856011095",
+      "name": "Check Landing",
+      "type": "check-data",
+      "settings": {
+        "cases": [
+          {
+            "condition": {
+              "left": {
+                "type": "data_collection",
+                "value": "AppointmentLandingDC.isLandingFromAppointment"
+              },
+              "operator": "eq",
+              "right": {
+                "type": "const",
+                "value": true
+              }
+            },
+            "output": "onLanding"
+          }
+        ],
+        "default": "noLanding"
+      },
+      "outputs": {
+        "error": "1617376880807",
+        "noLanding": "1617376679237",
+        "onLanding": "1618853051275"
+      }
+    },
+    {
+      "id": "1617376679237",
+      "name": "Welcome",
+      "type": "message",
+      "settings": {
+        "message": {
+          "type": "text",
+          "code": "message",
+          "body": "Hi, this is a Calendar Changing test."
+        }
+      },
+      "outputs": {
+        "done": "1621951089178",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1621951089178",
+      "name": "Choose Calendar",
+      "type": "prompt",
+      "settings": {
+        "message": {
+          "type": "text",
+          "code": "message",
+          "body": "With which company would you want to set an appointment?",
+          "quick_replies": [
+            {
+              "content_type": "text",
+              "title": "Covisian",
+              "payload": "covisian"
+            },
+            {
+              "content_type": "text",
+              "title": "STZ Bank",
+              "payload": "stz"
+            }
+          ]
+        },
+        "patterns": {
+          "bank": "stz"
+        }
+      },
+      "outputs": {
+        "error": "1617376880807",
+        "default": "1617376767967",
+        "bank": "1621864544572",
+        "timeout": "1617376644565"
+      },
+      "timeout": 50000
+    },
+    {
+      "id": "1621864544572",
+      "name": "ChangeCalendar",
+      "type": "set-data",
+      "settings": [
+        {
+          "source": {
+            "type": "const",
+            "value": "60ab6db7e7117db9cac34e49"
+          },
+          "destination": {
+            "type": "calendar",
+            "value": "id"
+          }
+        }
+      ],
+      "outputs": {
+        "done": "1621864584441",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1621864584441",
+      "name": "SendCalendarId",
+      "type": "message",
+      "settings": {
+        "message": {
+          "type": "text",
+          "code": "message",
+          "body": " Calendar Id: {{calendar.id}}"
+        }
+      },
+      "outputs": {
+        "done": "1617376767967",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1618853051275",
+      "name": "landingMessage",
+      "type": "message",
+      "settings": {
+        "message": {
+          "type": "text",
+          "code": "message",
+          "body": "Hi, thank you for joining your scheduled appointment... please hold on..."
+        }
+      },
+      "outputs": {
+        "done": "1618856152675",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1618856152675",
+      "name": "Enqueue",
+      "type": "queue",
+      "optionalOutputs": {
+        "cleared": "1617376644565",
+        "agentLeft": "1617376644565"
+      },
+      "outputs": {
+        "error": "1617376880807",
+        "noAgents": "1617376644565"
+      },
+      "settings": {}
+    },
+    {
+      "id": "1617376767967",
+      "name": "Get Appointment Types",
+      "type": "get-appointment-types",
+      "outputs": {
+        "done": "1617376910496",
+        "error": "1617376880807"
+      },
+      "settings": {}
+    },
+    {
+      "id": "1617376910496",
+      "name": "Prepare Appointment Types Message",
+      "type": "code",
+      "settings": {
+        "code": "const types = temp.appointmentTypes;\nconst quickReplies = types.map(a => {\n    return {\n        content_type: 'text',\n        title: a,\n        payload: a\n    }\n});\nconst msg = {\n    code: 'message',\n    type: 'text',\n    body: `Please select an Appointment topic (calendar: ${calendar.id})`,\n    quick_replies: quickReplies\n};\nmsg;",
+        "externalDataSlotName": "appointmentTypesMessage"
+      },
+      "outputs": {
+        "done": "1617799773022",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1617799773022",
+      "name": "Choose Appointment Type",
+      "type": "prompt",
+      "settings": {
+        "tempName": "chosenAppointmentType",
+        "message": "{{external.appointmentTypesMessage}}",
+        "patterns": {
+          "onType": ".+"
+        }
+      },
+      "outputs": {
+        "error": "1617376880807",
+        "onType": "1617638343715",
+        "timeout": "1617376644565"
+      },
+      "timeout": 40000
+    },
+    {
+      "id": "1617638343715",
+      "name": "Get Availabilities",
+      "type": "get-availabilities",
+      "settings": {
+        "appointmentType": {
+          "type": "temp",
+          "value": "chosenAppointmentType"
+        },
+        "days": {
+          "type": "const",
+          "value": "3"
+        }
+      },
+      "outputs": {
+        "done": "1617638435427",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1617638435427",
+      "name": "Prepare Availabilities",
+      "type": "code",
+      "settings": {
+        "code": "const availabilities = temp.availabilities;\nconst quickReplies = availabilities.map(av => {  \n    return {\n        content_type: 'text',\n        title: av.formatted,\n        payload: av.fromUTC\n    }\n});\n\nconst msg = {\n    \"type\": \"text\",\n    \"code\": \"message\",\n    \"body\": `Please choose a time slot (calendar: ${calendar.id})`,\n    \"quick_replies\": quickReplies\n};\n// return message\nmsg;\n\n",
+        "externalDataSlotName": "avMessage"
+      },
+      "outputs": {
+        "done": "1617800653455",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1617800653455",
+      "name": "Choose Time Slot",
+      "type": "prompt",
+      "settings": {
+        "message": "{{external.avMessage}}",
+        "tempName": "chosenDate",
+        "patterns": {
+          "onDate": ".+"
+        }
+      },
+      "outputs": {
+        "error": "1617376880807",
+        "onDate": "1618325124530",
+        "timeout": "1617376644565"
+      },
+      "timeout": 20000
+    },
+    {
+      "id": "1618325124530",
+      "name": "Ask name",
+      "type": "prompt",
+      "settings": {
+        "tempName": "name",
+        "message": {
+          "type": "text",
+          "code": "message",
+          "body": "What's your full name?"
+        },
+        "patterns": {
+          "onName": ".+"
+        }
+      },
+      "optionalOutputs": {
+        "cleared": "1617376644565"
+      },
+      "outputs": {
+        "error": "1617376880807",
+        "onName": "1618325191852"
+      }
+    },
+    {
+      "id": "1618325191852",
+      "name": "Ask Email Address",
+      "type": "prompt",
+      "settings": {
+        "tempName": "email",
+        "message": {
+          "type": "text",
+          "code": "message",
+          "body": "What's your email address?"
+        },
+        "patterns": {
+          "onEmail": ".+"
+        }
+      },
+      "optionalOutputs": {
+        "cleared": "1617376644565"
+      },
+      "outputs": {
+        "error": "1617376880807",
+        "onEmail": "1617639699366"
+      }
+    },
+    {
+      "id": "1617639699366",
+      "name": "Create Appointment",
+      "type": "set-appointment",
+      "settings": {
+        "appointmentType": {
+          "type": "temp",
+          "value": "chosenAppointmentType"
+        },
+        "summary": "An appointment about {{temp.chosenAppointmentType}}",
+        "description": "with {{temp.name}}, set by a script",
+        "fromDate": {
+          "type": "temp",
+          "value": "chosenDate"
+        },
+        "name": {
+          "type": "temp",
+          "value": "name"
+        },
+        "email": {
+          "type": "temp",
+          "value": "email"
+        },
+        "includeDataCollection": false,
+        "tempName": "newAppointment"
+      },
+      "outputs": {
+        "done": "1617800917863",
+        "dateNotAvailable": "1617802637063",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1617802637063",
+      "name": "SlotNotAvailable",
+      "type": "message",
+      "settings": {
+        "message": {
+          "type": "text",
+          "code": "message",
+          "body": "Chosen date slot is not available, anymore. Bye."
+        }
+      },
+      "outputs": {
+        "done": "1617376644565",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1617800917863",
+      "name": "Confirmed",
+      "type": "message",
+      "settings": {
+        "message": {
+          "type": "text",
+          "code": "message",
+          "body": "Your appointment was successfully set, with CODE: {{temp.newAppointment.code}} at {{temp.newAppointment.fromDate}}. You will receive a confirmation email very soon. Thank you, bye."
+        }
+      },
+      "outputs": {
+        "done": "1617376644565",
+        "error": "1617376880807"
+      }
+    },
+    {
+      "id": "1617376880807",
+      "name": "Error",
+      "type": "message",
+      "settings": {
+        "message": {
+          "type": "text",
+          "code": "message",
+          "body": "Error!"
+        }
+      },
+      "outputs": {
+        "done": "1617376644565",
+        "error": "1617376644565"
+      }
+    },
+    {
+      "id": "1617376644565",
+      "name": "end",
+      "type": "end",
+      "settings": {}
+    }
+  ],
+  "version": 1
+}
