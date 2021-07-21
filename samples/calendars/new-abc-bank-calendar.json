@@ -1,12 +1,12 @@
 {
-  "name": "Covisian Calendar",
-  "description": "A sample test calendar",
+  "name": "New ABC Bank Calendar",
+  "description": "New ABC Bank Calendar test",
   "media": "chat",
   "timezone": "Europe/Rome",
   "language": "en",
-  "company": "Covisian",
+  "company": "New ABC National Bank",
   "configuration": {
-    "maxConcurrentAppointments": 3,
+    "maxConcurrentAppointments": 8,
     "availabilityHours": {
       "intervals": [
         {
@@ -45,7 +45,7 @@
         {
           "dayOfMonth": {
             "from": 12,
-            "to": 12
+            "to": 13
           },
           "month": {
             "from": 5,
@@ -126,6 +126,22 @@
               "en": "VivochaDefaultCustLandingRemindTemplateEN"
             }
           }
+        },
+        "external": {
+          "templateName": {
+            "customerNewAppointment": {
+              "en": "ExternalDefaultTemplateEN"
+            },
+            "customerCancelAppointment": {
+              "en": "ExternalDefaultCancelledTemplateEN"
+            },
+            "customerRemindAppointment": {
+              "en": "ExternalDefaultCustRemindTemplateEN"
+            },
+            "customerLandingRemindAppointment": {
+              "en": "ExternalDefaultCustLandingRemindTemplateEN"
+            }
+          }
         }
       }
     },
@@ -139,33 +155,35 @@
   },
   "appointmentTypes": [
     {
-      "name": "Service VVC-A",
+      "name": "Accounting",
       "type": "vivocha",
-      "description": "Vivocha Service A",
+      "description": "Account services",
       "color": "#4287f5",
       "timezone": "Europe/Rome",
       "duration": 30,
       "paddingAfter": 5,
       "isActive": true,
-      "maxConcurrentAppointments": 3
+      "maxConcurrentAppointments": 2
     },
     {
-      "name": "Service VVC-B",
+      "name": "Money Transfer",
       "type": "vivocha",
-      "description": "Vivocha Service B",
+      "description": "Payments services",
       "color": "#f57960",
       "timezone": "Europe/Rome",
       "duration": 40,
+      "paddingAfter": 5,
       "isActive": true,
       "maxConcurrentAppointments": 3
     },
     {
-      "name": "Service VVC-C",
+      "name": "Loans",
       "type": "vivocha",
-      "description": "Vivocha Service C",
+      "description": "Loans info",
       "color": "#098765",
       "timezone": "Europe/Rome",
       "duration": 120,
+      "paddingAfter": 5,
       "isActive": true,
       "maxConcurrentAppointments": 2,
       "availabilityHours": {
@@ -180,12 +198,34 @@
       }
     },
     {
-      "name": "Service Ext-MI",
+      "name": "Credit Cards",
+      "type": "vivocha",
+      "description": "Credit and Debit cards",
+      "color": "#098765",
+      "timezone": "Europe/Rome",
+      "duration": 120,
+      "paddingAfter": 5,
+      "isActive": true,
+      "maxConcurrentAppointments": 2,
+      "availabilityHours": {
+        "exceptions": [
+          {
+            "dayOfWeek": {
+              "from": 1,
+              "to": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Milan Offices",
       "type": "external",
-      "description": "External Service Covisian MI",
+      "description": "External Service MI",
       "color": "#098765",
       "timezone": "Europe/Rome",
       "duration": 60,
+      "paddingAfter": 5,
       "isActive": true,
       "maxConcurrentAppointments": 4,
       "availabilityHours": {
@@ -201,19 +241,21 @@
       "settings": {
         "location": {
           "name": "Covisian HQ Milano",
-          "googlePlaceId": "ChIJAcOI_hrHhkcRp52QNE3bo6E",
+          "latitude": 45.5004000552936,
+          "longitude": 9.2284390454376,
           "address": "Via Valtorta, 45, 20127",
           "city": "Milano (MI)"
         }
       }
     },
     {
-      "name": "Service Ext-TO",
+      "name": "Turin Offices",
       "type": "external",
       "description": "External Service Covisian TO",
       "color": "#098765",
       "timezone": "Europe/Rome",
       "duration": 60,
+      "paddingAfter": 5,
       "isActive": true,
       "maxConcurrentAppointments": 1,
       "availabilityHours": {

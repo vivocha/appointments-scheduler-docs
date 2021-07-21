@@ -111,18 +111,36 @@
     "email": {
       "senderAddress": "mobile@vivocha.com",
       "template": {
-        "templateName": {
-          "customerNewAppointment": {
-            "en": "VivochaDefaultTemplateEN"
-          },
-          "customerCancelAppointment": {
-            "en": "VivochaDefaultCancelledTemplateEN"
-          },
-          "customerRemindAppointment": {
-            "en": "VivochaDefaultCustRemindTemplateEN"
-          },
-          "customerLandingRemindAppointment": {
-            "en": "VivochaDefaultCustLandingRemindTemplateEN"
+        "vivocha": {
+          "templateName": {
+            "customerNewAppointment": {
+              "en": "VivochaDefaultTemplateEN"
+            },
+            "customerCancelAppointment": {
+              "en": "VivochaDefaultCancelledTemplateEN"
+            },
+            "customerRemindAppointment": {
+              "en": "VivochaDefaultCustRemindTemplateEN"
+            },
+            "customerLandingRemindAppointment": {
+              "en": "VivochaDefaultCustLandingRemindTemplateEN"
+            }
+          }
+        },
+        "external": {
+          "templateName": {
+            "customerNewAppointment": {
+              "en": "ExternalDefaultTemplateEN"
+            },
+            "customerCancelAppointment": {
+              "en": "ExternalDefaultCancelledTemplateEN"
+            },
+            "customerRemindAppointment": {
+              "en": "ExternalDefaultCustRemindTemplateEN"
+            },
+            "customerLandingRemindAppointment": {
+              "en": "ExternalDefaultCustLandingRemindTemplateEN"
+            }
           }
         }
       }
