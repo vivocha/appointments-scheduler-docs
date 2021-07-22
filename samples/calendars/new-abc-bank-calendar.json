@@ -114,32 +114,40 @@
         "vivocha": {
           "templateName": {
             "customerNewAppointment": {
-              "en": "VivochaDefaultTemplateEN"
+              "en": "VivochaDefaultTemplateEN",
+              "it": "VivochaDefaultTemplateIT"
             },
             "customerCancelAppointment": {
-              "en": "VivochaDefaultCancelledTemplateEN"
+              "en": "VivochaDefaultCancelledTemplateEN",
+              "it": "VivochaDefaultCancelledTemplateIT"
             },
             "customerRemindAppointment": {
-              "en": "VivochaDefaultCustRemindTemplateEN"
+              "en": "VivochaDefaultCustRemindTemplateEN",
+              "it": "VivochaDefaultCustRemindTemplateIT"
             },
             "customerLandingRemindAppointment": {
-              "en": "VivochaDefaultCustLandingRemindTemplateEN"
+              "en": "VivochaDefaultCustLandingRemindTemplateEN",
+              "it": "VivochaDefaultCustLandingRemindTemplateIT"
             }
           }
         },
         "external": {
           "templateName": {
             "customerNewAppointment": {
-              "en": "ExternalDefaultTemplateEN"
+              "en": "ExternalDefaultTemplateEN",
+              "it": "ExternalDefaultTemplateIT"
             },
             "customerCancelAppointment": {
-              "en": "ExternalDefaultCancelledTemplateEN"
+              "en": "ExternalDefaultCancelledTemplateEN",
+              "it": "ExternalDefaultCancelledTemplateIT"
             },
             "customerRemindAppointment": {
-              "en": "ExternalDefaultCustRemindTemplateEN"
+              "en": "ExternalDefaultCustRemindTemplateEN",
+              "it": "ExternalDefaultCustRemindTemplateIT"
             },
             "customerLandingRemindAppointment": {
-              "en": "ExternalDefaultCustLandingRemindTemplateEN"
+              "en": "ExternalDefaultCustLandingRemindTemplateEN",
+              "it": "ExternalDefaultCustLandingRemindTemplateIT"
             }
           }
         }
