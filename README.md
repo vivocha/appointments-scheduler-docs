@@ -539,9 +539,9 @@ Example of JSON body:
         "it": "Il tuo appuntamento è stato cancellato, riceverai una email di conferma al più presto. Grazie."
       },
       "appointmentAlreadyCancelled": {
-      "en": "Appointment already cancelled or completed.",
-      "it": "Appuntamento già cancellato o completato."
-    }
+        "en": "Appointment already cancelled or completed.",
+        "it": "Appuntamento già cancellato o completato."
+      }
     },
     "landingPageUrl": "https://myline.vivocha.com/l/en/areariservata"
   },
