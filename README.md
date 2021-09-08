@@ -178,7 +178,7 @@ In the previous example, the configuration references the real default template 
 
 #### Web Templates
 
-Web templates are the messages to be shown to the customer a the result of some actions. Currently, only the (optional) `appointmentCancelled` is supported, and it is rendered in the browser when the customer cancels the appointment by selecting the related link/button in a received email.
+Web templates are the messages to be shown to the customer a the result of some actions. Currently, only the (optional) `appointmentCancelled` and `appointmentAlreadyCancelled` are supported, and they are rendered in the browser when the customer cancels the appointment by selecting the related link/button in a received email. if templates are not configured for a specific language, then english is used.
 Subproperties keys are the language code, as in the following, default, example:
 
 ```json
@@ -186,6 +186,10 @@ Subproperties keys are the language code, as in the following, default, example:
     "appointmentCancelled" : {
         "en" : "Your appointment has been successfully cancelled. You will receive a confirmation email very soon. Thank you.",
         "it" : "Il tuo appuntamento è stato cancellato, riceverai una email di conferma al più presto. Grazie."
+    },
+    "appointmentAlreadyCancelled": {
+      "en": "Appointment already cancelled or completed.",
+      "it": "Appuntamento già cancellato o completato."
     }
 }
 ```
@@ -533,7 +537,11 @@ Example of JSON body:
       "appointmentCancelled": {
         "en": "Your appointment has been successfully cancelled. You will receive a confirmation email very soon. Thank you.",
         "it": "Il tuo appuntamento è stato cancellato, riceverai una email di conferma al più presto. Grazie."
-      }
+      },
+      "appointmentAlreadyCancelled": {
+      "en": "Appointment already cancelled or completed.",
+      "it": "Appuntamento già cancellato o completato."
+    }
     },
     "landingPageUrl": "https://myline.vivocha.com/l/en/areariservata"
   },
@@ -981,7 +989,7 @@ Cancel an Appointment.
 
 The following endpoints are intended to be sent and used by email to the customer.
 
-These endpoints always require a query param named `token`, wich must be set with the token generate by Vivocha, included in emails, for example.
+These endpoints always require a query param named `token`, which must be set with the token generate by Vivocha, included in emails, for example.
 
 #### DELETE `/appointments/{id}`
 
