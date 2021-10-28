@@ -6,7 +6,7 @@
 | :-----------------------------------------------------------------------------------------------: |
 |                                                                                                   |
 
-*version 1.5.0* - last update: *14/09/2021*
+*version 2.0.0* - last update: *29/10/2021*
 
 ---
 
@@ -321,8 +321,8 @@ An *External Appointment Context* has the following properties:
 
 ## Appointment Data Encryption
 
-It is possible to encrypt the stored appointment context data. To enable this security feature, the *data collection encryption* property in the Vivocha Account settings MUST be set to *Transmission & storage*.
-If encryption is enabled, only the appointment `context.data` property is encrypted before storing it, and it is automatically decrypted when accessed, for example by calling an API endpoint.
+The Appointments Scheduler automatically encrypts all the appointments context data, which may contain sensitive data.
+Only the appointment `context.data` property is encrypted before storing it, and it is automatically decrypted when accessed, for example by calling an API endpoint.
 
 ---
 
@@ -909,9 +909,13 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 
 Returns a paginated list of appointments related to the specified account.
 
-##### POST `/appointments`
+##### POST `/appointments[?sendEmails=true|false]`
 
 Create a new Appointment.
+
+The available, optional, query parameter is the following:
+
+`sendEmails`: to send or not the emails to the customer about the new appointment. Admitted values are `true` and `false`. Default is `true`, emails are sent.
 
 To create an Appointment the JSON body MUST include the following properties:
 
@@ -975,15 +979,22 @@ Examples of create an Appointment JSON body contents follows.
 
 Get an appointment.
 
-##### DELETE `/appointments/{id}`
+##### DELETE `/appointments/{id}[?sendEmails=true|false]`
 
 Cancel and delete an Appointment.
 
+The available, optional, query parameter is the following:
+
+`sendEmails`: to send or not the emails to the customer about the cancelled appointment. Admitted values are `true` and `false`. Default is `true`, emails are sent.
+
 #### Actions
 
-##### POST `/appointments/{id}/actions/cancel`
+##### POST `/appointments/{id}/actions/cancel[?sendEmails=true|false]`
 
 Cancel an Appointment.
+The available, optional, query parameter is the following:
+
+`sendEmails`: to send or not the emails to the customer about the cancelled appointment. Admitted values are `true` and `false`. Default is `true`, emails are sent.
 
 ### Appointment Public Endpoints
 
