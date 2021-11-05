@@ -111,7 +111,7 @@
     "email": {
       "senderAddress": "mobile@vivocha.com",
       "template": {
-        "vivocha": {
+        "online": {
           "templateName": {
             "customerNewAppointment": {
               "en": "VivochaDefaultTemplateEN"
@@ -156,7 +156,7 @@
   "appointmentTypes": [
     {
       "name": "Account",
-      "type": "vivocha",
+      "type": "online",
       "description": "Account services",
       "color": "#4287f5",
       "timezone": "Europe/Rome",
@@ -167,7 +167,7 @@
     },
     {
       "name": "Payments",
-      "type": "vivocha",
+      "type": "online",
       "description": "Payments services",
       "color": "#f57960",
       "timezone": "Europe/Rome",
@@ -177,7 +177,7 @@
     },
     {
       "name": "Loans",
-      "type": "vivocha",
+      "type": "online",
       "description": "Loans info",
       "color": "#098765",
       "timezone": "Europe/Rome",
@@ -198,7 +198,7 @@
     },
     {
       "name": "Credit Cards",
-      "type": "vivocha",
+      "type": "online",
       "description": "Credit and Debit cards",
       "color": "#098765",
       "timezone": "Europe/Rome",

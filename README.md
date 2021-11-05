@@ -91,15 +91,15 @@ In the current version of the Appointments Scheduler, a Calendar has the followi
 Current version provides a static configuration of the Calendar.
 Calendar Configuration properties follow:
 
-| PROPERTY                    | VALUE                      | DESCRIPTION                                                                                                                                                                                                                                                                                               |
-| --------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `availabilityHours`         | (optional) object          | defines the general availability (when an appointment can be set) days and hours of the Calendar, including exceptions (when an appointment can't be set). An AppointmentType can add its own availability exceptions. Availability Hours are in the same format as the Vivocha Campaingn's Opening Hours |
-| `maxConcurrentAppointments` | (optional) number, integer | the maximum number of concurrent appointments that can be set in this calendar. Appointment Types can decrease the max concurrent number for a particular type of appointment                                                                                                                             |
-| `tags`                      | (optional) array of string | Calendar tags (currently not used)                                                                                                                                                                                                                                                                        |
-| `exclusiveAgents`           | (optional) array of string | a list of Vivocha Agents Ids (currently not used)                                                                                                                                                                                                                                                         |
-| `email`                     | (optional) object          | configuration object for the emails to send to customers, see below in this section                                                                                                                                                                                                                       |
-| `webTemplates`              | (optional) object          | strings to be shown to customers on a browser, for example when it cancels an appointment by a link in an email. Strings are set by language code. See below in the next sections                                                                                                                         |
-| `landingPageUrl`            | (optional) string          | the URL of the page to redirect customers to join the online Vivocha appointment                                                                                                                                                                                                                          |
+| PROPERTY                    | VALUE                      | DESCRIPTION                                                                                                                                                                                                                                                                                              |
+| --------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `availabilityHours`         | (optional) object          | defines the general availability (when an appointment can be set) days and hours of the Calendar, including exceptions (when an appointment can't be set). An AppointmentType can add its own availability exceptions. Availability Hours are in the same format as the Vivocha Campaign's Opening Hours |
+| `maxConcurrentAppointments` | (optional) number, integer | the maximum number of concurrent appointments that can be set in this calendar. Appointment Types can decrease the max concurrent number for a particular type of appointment                                                                                                                            |
+| `tags`                      | (optional) array of string | Calendar tags (currently not used)                                                                                                                                                                                                                                                                       |
+| `exclusiveAgents`           | (optional) array of string | a list of Vivocha Agents Ids (currently not used)                                                                                                                                                                                                                                                        |
+| `email`                     | (optional) object          | configuration object for the emails to send to customers, see below in this section                                                                                                                                                                                                                      |
+| `webTemplates`              | (optional) object          | strings to be shown to customers on a browser, for example when it cancels an appointment by a link in an email. Strings are set by language code. See below in the next sections                                                                                                                        |
+| `landingPageUrl`            | (optional) string          | the URL of the page to redirect customers to join the online appointment                                                                                                                                                                                                                                 |
 ---
 
 #### Email Configuration
@@ -108,19 +108,19 @@ The Appointments scheduler sends some emails to the customers involved in appoin
 
 - when the appointment is created and set, with links to download an iCal file and to cancel the appointment
 - one hour before the appointment, as a reminder, with the option to cancel the appointment
-- ten minutes before the appointment, as a reminder, with the option to cancel the appointment and, only in case of a Vivocha (online) appointment type, a link to join the appointment with an agent at the set date/hour.
+- ten minutes before the appointment, as a reminder, with the option to cancel the appointment and, only in case of an *online* appointment type, a link to join the appointment with an agent at the set date/hour.
 - moreover, an email is also sent if the customer cancels the appointment at any moment. In that case, reminders will not be sent anymore.
 
 The Appointments Scheduler uses **AWS SES service** to send the required emails, and they are based on templates ([find more here](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-personalized-email-api.html)). Thus, it is necessary, as a first step, to upload all the required custom AWS SES templates before configuring a Calendar, otherwise the Vivocha default templates will be automatically used to compose emails.
 
 The Calendar Email configuration is based on the following properties:
 
-| PROPERTY        | VALUE                       | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| --------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `senderAddress` | string                      | Email address to use as sender. It MUST be previously verified by AWS SES before configuring it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `ccAddresses`   | (optional) array of strings | A list of email addresses to send emails in Cc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `bccAddresses`  | (optional) array of strings | A list of email addresses to also send emails in Bcc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `template`      | (optional) object           | Email templates configuration. It is an object that can have two properties named `vivocha` or `external`. These properties are of type object, and they are intended to contain the email templates configuration for the particular appointment macro-type. The referenced object has two main properties: 1) `templateName`, mandatory, is an object with the following properties (all optional): `customerNewAppointment`, `customerCancelAppointment`, `agentNewAppointment` (currently not used), `agentCancelAppointment` (currently not used), `customerRemindAppointment`, `customerLandingRemindAppointment`, `agentRemindAppointment` (currently not used). Each of these properties are object with a language string as a key (e.g., `en`, `it`), and a corresponding registered AWS SES template name. If a template is not configured for a given calendar language, then english is used. 2) `templateData` (optional), an object representing the data to be sent in emails and must match the data keys referenced by AWS SES registered templates (currently not used). |
+| PROPERTY        | VALUE                       | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| --------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `senderAddress` | string                      | Email address to use as sender. It MUST be previously verified by AWS SES before configuring it                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `ccAddresses`   | (optional) array of strings | A list of email addresses to send emails in Cc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `bccAddresses`  | (optional) array of strings | A list of email addresses to also send emails in Bcc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `template`      | (optional) object           | Email templates configuration. It is an object that can have two properties named `online` or `external`. These properties are of type object, and they are intended to contain the email templates configuration for the particular appointment macro-type. The referenced object has two main properties: 1) `templateName`, mandatory, is an object with the following properties (all optional): `customerNewAppointment`, `customerCancelAppointment`, `agentNewAppointment` (currently not used), `agentCancelAppointment` (currently not used), `customerRemindAppointment`, `customerLandingRemindAppointment`, `agentRemindAppointment` (currently not used). Each of these properties are object with a language string as a key (e.g., `en`, `it`), and a corresponding registered AWS SES template name. If a template is not configured for a given calendar language, then english is used. 2) `templateData` (optional), an object representing the data to be sent in emails and must match the data keys referenced by AWS SES registered templates (currently not used). |
 
 ---
 
@@ -130,7 +130,7 @@ An example of email configuration, referencing the default email templates provi
  "email" : {
     "senderAddress" : "mobile@vivocha.com",
     "template" : {
-        "vivocha" : {
+        "online" : {
             "templateName" : {
                 "customerNewAppointment" : {
                     "en" : "VivochaDefaultTemplateEN",
@@ -197,14 +197,14 @@ Subproperties keys are the language code, as in the following, default, example:
 #### Appointment Types
 
 An Appointment Type is the definition of a type of an appointment that can be set in a specific Calendar.
-Basically, the current version supports the definition of two "macro" types: appointments of *vivocha* type, and of *external* type. The former is an online appointment to happen through the Vivocha platform; the latter is a *de visu*, location-based appointment.
+Basically, the current version supports the definition of two *macro-types*: appointments of *online* type, and of *external* type. The former is an online appointment, e.g., to happen through the Vivocha platform; the latter is a *de visu*, location-based appointment.
 
 An Appointment Type defines several properties, summarized by the next table:
 
 | PROPERTY                    | VALUE                      | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | --------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`                      | string                     | the name of the type, MUST BE unique in the context of the same Calendar, it is used as its id                                                                                                                                                                                                                                                                                                                                                                 |
-| `type`                      | string                     | macro type, admitted values are: `vivocha` and `external`                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `type`                      | string                     | *macro-type*, admitted values are: `online` and `external`                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `description`               | (optional) string          | a free text description                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `image`                     | (optional) string          | URL of an image to associate to the appointment type                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `color`                     | (optional) string          | Hex number string of the color to associate to the appointment type                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -217,13 +217,13 @@ An Appointment Type defines several properties, summarized by the next table:
 | `isActive`                  | (optional) boolean         | an Appointment type can be deactivated (currently not used)                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `availabilityHours`         | (optional) object          | like the Calendar's availability hours but only `exceptions` can be configured in an Appointment Type. It can be used to restrict the availabilities for the particular type. E.g. to configure to not accept appointments of the specific type on Mondays, or on every afternoon.                                                                                                                                                                             |
 | `maxConcurrentAppointments` | number, integer            | the maximum number of concurrent appointments that can be set for the specific Appointment Type. If the `maxConcurrentAppointments` is already set at Calendar-level, then this property can be used only to narrow that value (and not to increase it). E.g., if Calendar `maxConcurrentAppointments` property is set to 10, the Appointment Type can specify a smaller value and not a bigger one. In any case, the smaller of the two will be finally used. |
-| `settings`                  | (optional) object          | settings object, depending on the appointment macro type, Vivocha or External, read more below in this section                                                                                                                                                                                                                                                                                                                                                 |
+| `settings`                  | (optional) object          | settings object, depending on the appointment *macro-type*, Online or External, read more below in this section                                                                                                                                                                                                                                                                                                                                                |
 
 ---
 
 ##### Appointment Type Settings
 
-In case of an Appointment Type of `vivocha` type, `settings` are the following:
+In case of an Appointment Type of `online` type, `settings` are the following:
 
 | PROPERTY          | VALUE                       | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ----------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -261,7 +261,7 @@ Being an external appointment based on a physical location or place, the Appoint
 | `name`          | string            | name of the place / location                                                             |
 | `latitude`      | (optional) number | latitude                                                                                 |
 | `longitude`     | (optional) number | longitude                                                                                |
-| `googlePlaceId` | (optional) string | Google Place Id, if set it will be used instead of address in the vivocha default emails |
+| `googlePlaceId` | (optional) string | Google Place Id, if set it will be used instead of address in the Vivocha default emails |
 | `countryCode`   | (optional) string | country code                                                                             |
 | `countryName`   | (optional) string | name of the country                                                                      |
 | `region`        | (optional) string | region name                                                                              |
@@ -272,38 +272,38 @@ Being an external appointment based on a physical location or place, the Appoint
 
 ## Appointment
 
-An Appointment represents a "meeting" between an agent and a customer. In case of a Vivocha Appointment Type, that meeting is by an "online" landing. When the Appointment types is External, then it refers to a physical "de visu" meeting in a well defined place/location.
+An Appointment represents a "meeting" between an agent and a customer. In case of an *online* Appointment Type, that meeting is by an "online" landing. When the Appointment types is *external*, then it refers to a physical "de visu" meeting in a well defined place/location.
 Once created and set, an Appointment has the following properties:
 
-| PROPERTY         | VALUE                     | DESCRIPTION                                                                                              |
-| ---------------- | ------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `_id`            | string                    | unique id of the appointment                                                                             |
-| `acct_id`        | string                    | Vivocha account id                                                                                       |
-| `type`           | string                    | Appointment Type name, on the the Appointment Types' name defined in a Calendar                          |
-| `calendarId`     | string                    | Id of the Calendar which the appointment belongs to                                                      |
-| `campaignId`     | string                    | Id of the Campaign through which the appointment has been created and set                                |
-| `conversationId` | (optional) string         | id of the conversation through which the appointment has been created and set                            |
-| `summary`        | string                    | summary of the appointment                                                                               |
-| `description`    | (optional) string         | free text                                                                                                |
-| `timezone`       | (optional) string         | [IANA timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) of the created appointment |
-| `fromDate`       | Date                      | Starting UTC Date Time of the appointment                                                                |
-| `toDate`         | Date                      | Ending UTC Date Time of the appointment (`fromDate` + `duration`)                                        |
-| `duration`       | (optional) integer number | duration of the appointment, in minutes                                                                  |
-| `code`           | string                    | unique, generated Appointment Code                                                                       |
-| `context`        | object                    | Appointment context data, it depends on macro type, Vivocha or External. Read more below in this section |
-| `state`          | (optional) object         | object representing the current state of the appointment. See **Appointment State** section below        |
+| PROPERTY         | VALUE                     | DESCRIPTION                                                                                                       |
+| ---------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `_id`            | string                    | unique id of the appointment                                                                                      |
+| `acct_id`        | string                    | Vivocha account id                                                                                                |
+| `type`           | string                    | Appointment Type name, on the the Appointment Types' name defined in a Calendar                                   |
+| `calendarId`     | string                    | Id of the Calendar which the appointment belongs to                                                               |
+| `campaignId`     | string                    | Id of the Campaign through which the appointment has been created and set                                         |
+| `conversationId` | (optional) string         | id of the conversation through which the appointment has been created and set                                     |
+| `summary`        | string                    | summary of the appointment                                                                                        |
+| `description`    | (optional) string         | free text                                                                                                         |
+| `timezone`       | (optional) string         | [IANA timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) of the created appointment          |
+| `fromDate`       | Date                      | Starting UTC Date Time of the appointment                                                                         |
+| `toDate`         | Date                      | Ending UTC Date Time of the appointment (`fromDate` + `duration`)                                                 |
+| `duration`       | (optional) integer number | duration of the appointment, in minutes                                                                           |
+| `code`           | string                    | unique, generated Appointment Code                                                                                |
+| `context`        | object                    | Appointment context data, it depends on the *macro-type*: `online` or `external`. Read more below in this section |
+| `state`          | (optional) object         | object representing the current state of the appointment. See **Appointment State** section below                 |
 
 ---
 
 ### Appointment Context
 
-The Appointment `context` is an object with different properties depending on the macro type.
+The Appointment `context` is an object with different properties depending on the *macro-type*.
 
-A *Vivocha Appointment Context* has the following properties:
+An *Online Appointment Context* has the following properties:
 
 | PROPERTY          | VALUE                       | DESCRIPTION                                                                                                                                                                                                    |
 | ----------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | string                      | type of the appointment, set to `vivocha`                                                                                                                                                                      |
+| `type`            | string                      | type of the appointment, set to `online`                                                                                                                                                                       |
 | `contactId`       | (optional) string           | Id of the contact created (if created) for the Appointment (currently not used)                                                                                                                                |
 | `tags`            | (optional) array of strings | a list of tags (currently not used)                                                                                                                                                                            |
 | `exclusiveAgents` | (optional) array of strings | a list of exclusiveAgents (currently not used)                                                                                                                                                                 |
@@ -491,7 +491,7 @@ Example of JSON body:
     "email": {
       "senderAddress": "mobile@vivocha.com",
       "template": {
-        "vivocha": {
+        "online": {
           "templateName": {
             "customerNewAppointment": {
               "en": "VivochaDefaultTemplateEN",
@@ -548,7 +548,7 @@ Example of JSON body:
   "appointmentTypes": [
     {
       "name": "Accounting",
-      "type": "vivocha",
+      "type": "online",
       "description": "Account services",
       "color": "#4287f5",
       "timezone": "Europe/Rome",
@@ -559,7 +559,7 @@ Example of JSON body:
     },
     {
       "name": "Money Transfer",
-      "type": "vivocha",
+      "type": "online",
       "description": "Payments services",
       "color": "#f57960",
       "timezone": "Europe/Rome",
@@ -570,7 +570,7 @@ Example of JSON body:
     },
     {
       "name": "Loans",
-      "type": "vivocha",
+      "type": "online",
       "description": "Loans info",
       "color": "#098765",
       "timezone": "Europe/Rome",
@@ -591,7 +591,7 @@ Example of JSON body:
     },
     {
       "name": "Credit Cards",
-      "type": "vivocha",
+      "type": "online",
       "description": "Credit and Debit cards",
       "color": "#098765",
       "timezone": "Europe/Rome",
@@ -919,21 +919,21 @@ The available, optional, query parameter is the following:
 
 To create an Appointment the JSON body MUST include the following properties:
 
-| PROPERTY         | VALUE             | DESCRIPTION                                                                                                                                                  |
-| ---------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `type`           | string            | name of the Appointment Type, as defined in the referenced Calendar                                                                                          |
-| `calendarId`     | string            | id of the referenced Calendar                                                                                                                                |
-| `campaignId`     | string            | id of the current Vivocha Campaign                                                                                                                           |
-| `conversationId` | (optional) string | id of the conversation                                                                                                                                       |
-| `summary`        | string            | Appointment summary                                                                                                                                          |
-| `description`    | string            | Appointment description, free text                                                                                                                           |
-| `fromDate`       | string            | Appointment start date based on UTC and in ISO 8601 format                                                                                                   |
-| `timezone`       | (optional) string | [IANA Timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)                                                                                |
-| `context`        | object            | Appointment Context, different in case it is under creation a Vivocha or an External Appointment. See **Appointment Context** section above in this document |
+| PROPERTY         | VALUE             | DESCRIPTION                                                                                                                                                 |
+| ---------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`           | string            | name of the Appointment Type, as defined in the referenced Calendar                                                                                         |
+| `calendarId`     | string            | id of the referenced Calendar                                                                                                                               |
+| `campaignId`     | string            | id of the current Vivocha Campaign                                                                                                                          |
+| `conversationId` | (optional) string | id of the conversation                                                                                                                                      |
+| `summary`        | string            | Appointment summary                                                                                                                                         |
+| `description`    | string            | Appointment description, free text                                                                                                                          |
+| `fromDate`       | string            | Appointment start date based on UTC and in ISO 8601 format                                                                                                  |
+| `timezone`       | (optional) string | [IANA Timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)                                                                               |
+| `context`        | object            | Appointment Context, different in case it is under creation a Online or an External Appointment. See **Appointment Context** section above in this document |
 
 Examples of create an Appointment JSON body contents follows.
 
-###### JSON body to create a new *Vivocha* appointment
+###### JSON body to create a new *online* appointment
 
 ```json
 {  
@@ -945,7 +945,7 @@ Examples of create an Appointment JSON body contents follows.
   "description":"A user reports a bricked computer after an update",
   "type": "Service VVC-A",
   "context": {
-    "type": "vivocha",
+    "type": "online",
     "data":{
       "name":"Antonio Rossi",
       "email":"rossi@blablablabla.com"
@@ -1000,7 +1000,7 @@ The available, optional, query parameter is the following:
 
 The following endpoints are intended to be sent and used by email to the customer.
 
-These endpoints always require a query param named `token`, which must be set with the token generate by Vivocha, included in emails, for example.
+These endpoints always require a query param named `token`, which must be set with the token generated by Vivocha, included in emails, for example.
 
 #### DELETE `/appointments/{id}`
 

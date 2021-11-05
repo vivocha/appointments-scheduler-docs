@@ -111,18 +111,36 @@
     "email": {
       "senderAddress": "mobile@vivocha.com",
       "template": {
-        "templateName": {
-          "customerNewAppointment": {
-            "en": "VivochaDefaultTemplateEN"
-          },
-          "customerCancelAppointment": {
-            "en": "VivochaDefaultCancelledTemplateEN"
-          },
-          "customerRemindAppointment": {
-            "en": "VivochaDefaultCustRemindTemplateEN"
-          },
-          "customerLandingRemindAppointment": {
-            "en": "VivochaDefaultCustLandingRemindTemplateEN"
+        "online": {
+          "templateName": {
+            "customerNewAppointment": {
+              "en": "VivochaDefaultTemplateEN"
+            },
+            "customerCancelAppointment": {
+              "en": "VivochaDefaultCancelledTemplateEN"
+            },
+            "customerRemindAppointment": {
+              "en": "VivochaDefaultCustRemindTemplateEN"
+            },
+            "customerLandingRemindAppointment": {
+              "en": "VivochaDefaultCustLandingRemindTemplateEN"
+            }
+          }
+        },
+        "external": {
+          "templateName": {
+            "customerNewAppointment": {
+              "en": "ExternalDefaultTemplateEN"
+            },
+            "customerCancelAppointment": {
+              "en": "ExternalDefaultCancelledTemplateEN"
+            },
+            "customerRemindAppointment": {
+              "en": "ExternalDefaultCustRemindTemplateEN"
+            },
+            "customerLandingRemindAppointment": {
+              "en": "ExternalDefaultCustLandingRemindTemplateEN"
+            }
           }
         }
       }
@@ -138,7 +156,7 @@
   "appointmentTypes": [
     {
       "name": "Service VVC-A",
-      "type": "vivocha",
+      "type": "online",
       "description": "Vivocha Service A",
       "color": "#4287f5",
       "timezone": "Europe/Rome",
@@ -149,7 +167,7 @@
     },
     {
       "name": "Service VVC-B",
-      "type": "vivocha",
+      "type": "online",
       "description": "Vivocha Service B",
       "color": "#f57960",
       "timezone": "Europe/Rome",
@@ -160,7 +178,7 @@
     },
     {
       "name": "Service VVC-C",
-      "type": "vivocha",
+      "type": "online",
       "description": "Vivocha Service C",
       "color": "#098765",
       "timezone": "Europe/Rome",
