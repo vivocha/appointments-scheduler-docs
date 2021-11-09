@@ -6,7 +6,7 @@
 | :-----------------------------------------------------------------------------------------------: |
 |                                                                                                   |
 
-*version 2.0.0* - last update: *29/10/2021*
+*version 2.0.0* - last update: *09/11/2021*
 
 ---
 
@@ -281,7 +281,7 @@ Once created and set, an Appointment has the following properties:
 | `acct_id`        | string                    | Vivocha account id                                                                                                |
 | `type`           | string                    | Appointment Type name, on the the Appointment Types' name defined in a Calendar                                   |
 | `calendarId`     | string                    | Id of the Calendar which the appointment belongs to                                                               |
-| `campaignId`     | string                    | Id of the Campaign through which the appointment has been created and set                                         |
+| `campaignId`     | (optional) string         | Id of the Campaign through which the appointment has been created and set                                         |
 | `conversationId` | (optional) string         | id of the conversation through which the appointment has been created and set                                     |
 | `summary`        | string                    | summary of the appointment                                                                                        |
 | `description`    | (optional) string         | free text                                                                                                         |
@@ -923,7 +923,7 @@ To create an Appointment the JSON body MUST include the following properties:
 | ---------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `type`           | string            | name of the Appointment Type, as defined in the referenced Calendar                                                                                         |
 | `calendarId`     | string            | id of the referenced Calendar                                                                                                                               |
-| `campaignId`     | string            | id of the current Vivocha Campaign                                                                                                                          |
+| `campaignId`     | (optional) string | id of the current Vivocha Campaign                                                                                                                          |
 | `conversationId` | (optional) string | id of the conversation                                                                                                                                      |
 | `summary`        | string            | Appointment summary                                                                                                                                         |
 | `description`    | string            | Appointment description, free text                                                                                                                          |
@@ -938,7 +938,6 @@ Examples of create an Appointment JSON body contents follows.
 ```json
 {  
   "calendarId": "609...6dd",
-  "campaignId": "5e95bd...e54",
   "timezone": "Europe/Rome",
   "fromDate": "2021-05-10T11:00Z",
   "summary":"A Vivocha Appointment",
@@ -959,7 +958,6 @@ Examples of create an Appointment JSON body contents follows.
 ```json
 {  
   "calendarId": "60914a...48b6dd",
-  "campaignId": "5e95...2e54",
   "timezone": "Europe/Rome",
   "fromDate": "2021-05-13T11:00Z",
   "summary":"Documentation Delivery",
