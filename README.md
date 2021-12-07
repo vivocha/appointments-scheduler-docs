@@ -900,7 +900,9 @@ Available query parameters are:
 
 `to`: optional, UTC ISO 8601 date string to including appointments set before that date; if parameter isn't provided, `to` is computed as `from + 1 month`;
 
-`padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. If set to false or not specified, then the event doesn't include the padding in the iCalendar format.
+`padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. If set to false or not specified, then the event doesn't include the padding in the iCalendar format;
+
+`complete`: optional, if set to `true`, include also already completed appointments in the returned iCalendar. If set to false or not specified, then already completed appointments are not included.
 
 ---
 
