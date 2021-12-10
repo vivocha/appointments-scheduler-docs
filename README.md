@@ -6,7 +6,7 @@
 | :-----------------------------------------------------------------------------------------------: |
 |                                                                                                   |
 
-_version 2.0.0_ - last update: _09/11/2021_
+_version 2.1.0_ - last update: _10/12/2021_
 
 ---
 
@@ -370,9 +370,22 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 
 #### CRUD
 
-##### GET `/calendars`
+##### GET `/calendars[?q=<string>]`
 
 Get a list of Calendars.
+The available, optional, query params are the following:
+
+`q`: a Resource Query Language (RQL) command in string format. Included to execute a query following the RQL specification.
+
+The RQL query string must follow the RQL specification. For example:
+
+GET `/calendars?q=eq(name, calendar one)`
+
+return a list of calendars with name equal to `calendar one` and
+
+GET `/calendars?q=matches(name, one)`
+
+return a list of calendars in wich the name contains the word to `one`.
 
 ##### POST `/calendars`
 
@@ -871,7 +884,7 @@ If the specified `appointmentType` parameter refers to an Appointment Type which
 
 Retrieve a list of JSON appointments set in the referenced Calendar.
 
-##### GET `/calendars/{id}/appointments[?fromDate=<start-date>&toDate=<end-date>&complete=<boolean>]`
+##### GET `/calendars/{id}/appointments[?fromDate=<start-date>&toDate=<end-date>&complete=<boolean>&q=<string>]`
 
 Return a list of appointments.
 The available, optional, query params are the following:
@@ -881,6 +894,18 @@ The available, optional, query params are the following:
 `fromDate`: UTC, ISO 8601 date string to end retrieving appointments; Appointments set over this date are excluded from the listing;
 
 `complete`: include also already completed appointments; Default is false, it returns only not yet completed ones.
+
+`q`: a Resource Query Language (RQL) command in string format. Included to execute a query following the RQL specification.
+
+The RQL query string must follow the RQL specification. For example:
+
+GET `/calendars/{id}/appointments?q=eq(name, appointment one)`
+
+return a list of appointments with name equal to `appointment one` and
+
+GET `/calendars/{id}/appointments?q=matches(name, one)`
+
+return a list of appointments in wich the name contains the word to `one`.
 
 ### Calendar Public Endpoints
 
@@ -928,9 +953,22 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 
 #### CRUD
 
-##### GET `/appointments`
+##### GET `/appointments[?q=<string>]`
 
 Returns a paginated list of appointments related to the specified account.
+The available, optional, query params are the following:
+
+`q`: a Resource Query Language (RQL) command in string format. Included to execute a query following the RQL specification.
+
+The RQL query string must follow the RQL specification. For example:
+
+GET `/appointments?q=eq(name, appointment one)`
+
+return a list of appointments with name equal to `appointment one` and
+
+GET `/appointments?q=matches(name, one)`
+
+return a list of appointments in wich the name contains the word to `one`.
 
 ##### POST `/appointments[?sendEmails=true|false]`
 
