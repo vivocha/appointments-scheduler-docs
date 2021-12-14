@@ -382,11 +382,11 @@ The RQL query string must be compliant to the RQL specification.
 
 Some examples of getting a list of Calendars using RQL are the following:
 
-**GET `/calendars?q=eq(name, MyCalendar)`**
+**GET `/calendars?q=eq(name,MyCalendar)`**
 
 return a list of calendars with name equal to `MyCalendar`.
 
-**GET `/calendars?q=matches(name, one)`**
+**GET `/calendars?q=matches(name,one)`**
 
 return a list of calendars where the name contains the word to `one`, used here as a regular expression.
 
