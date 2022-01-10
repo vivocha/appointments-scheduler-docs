@@ -6,7 +6,7 @@
 | :-----------------------------------------------------------------------------------------------: |
 |                                                                                                   |
 
-_version 2.1.0_ - last update: _10/12/2021_
+_version 2.2.0_ - last update: _01/01/2022_
 
 ---
 
@@ -791,6 +791,7 @@ The current version the availabilities algorithm works as follows:
 
 - the starting date is the specified one, if it is in the present or future; otherwise, if it is in the past, then UTC _now_ is automatically used, instead;
 - the minimum days of calculation is 1;
+- the maximum days of calculation is 15;
 - if starting date refers to the current (_now_) date and hour, if minutes are > 0, then it starts from the same day, next hour;
 - it partitions the day in slots having the same height, equal to the appointment duration (+ padding after value, if specified);
 - finally, it excludes the slots which already have the relative maximum number of concurrent appointments, or they don't satisfy the availabilityHours; if a slot is rejected, next processed slot will be the one after previous slot's _start date + duration + (padding after, if set)_;
@@ -806,7 +807,7 @@ Get a JSON object with availabilities.
 
 `startDate`: the date to start computing availabilities from. It MUST be in UTC and in ISO 8601 format; `startDate` can't be a date-time in the past. If the provided ISO 8601 date string refers to a date in the past then UTC now date is used as start date, automatically;
 
-`days`: the number of days, including the day in `startDate` param, to include in availabilities computing;
+`days`: the number of days, including the day in `startDate` param, to include in availabilities computing; **Allowed maximum number of days is 15** per API call. If you need to compute the availabilities for more than consecutive 15 days, then change `startDate` and `days` params accordingly, to do a sort of availabilities "pagination".
 
 The endpoint returns an array of available time slots that can be used to create an Appointment of the specified type.
 
@@ -902,11 +903,11 @@ The available, optional, query params are the following:
 
 The RQL query string must follow the RQL specification. For example:
 
-**GET `/calendars/{id}/appointments?q=eq(name, AppointmentA)`**
+**GET `/calendars/{id}/appointments?q=eq(name,AppointmentA)`**
 
 return a list of appointments with name equal to `AppointmentA`;
 
-**GET `/calendars/{id}/appointments?q=matches(name, one)`**
+**GET `/calendars/{id}/appointments?q=matches(name,one)`**
 
 return a list of appointments where the name contains the word to `one`, used here as a regular expression.
 
@@ -967,11 +968,11 @@ The RQL query string must follow the RQL specification.
 
 Some examples about usong RQL are:
 
-**GET `/appointments?q=eq(name, AppointmentA)`**
+**GET `/appointments?q=eq(name,AppointmentA)`**
 
 return a list of appointments with name equal to `appointmentA`;
 
-**GET `/appointments?q=matches(name, one)`**
+**GET `/appointments?q=matches(name,one)`**
 
 return a list of appointments where the name contains the word to `one`, intended here as a regular expression.
 
@@ -1137,7 +1138,7 @@ The other block settings to configure are the following:
 - `48h`: now + 48 hours
 - `6d`: now + 6 days at time 00:00:000
 
-`days`: required, the data source (const value or a context data property) where to get the number of days (starting from and including the day in `fromDate`) to compute the time slots availabilities for the chosen Appointment Type.
+`days`: required, the data source (const value or a context data property) where to get the number of days (starting from and including the day in `fromDate`) to compute the time slots availabilities for the chosen Appointment Type. **Allowed maximum number of days is 15**, if you need to compute availabilities for more days you must repeat block execution changing the `startIn` and `days` parameters.
 
 As written above, the computed availabilities are stored in the `temp.<tempName>` or `temp.availabilities` context property, and they are an **array** of objects as follows:
 
