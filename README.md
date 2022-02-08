@@ -297,7 +297,7 @@ Once created and set, an Appointment has the following properties:
 | `code`           | string                    | unique, generated Appointment Code                                                                                |
 | `context`        | object                    | Appointment context data, it depends on the _macro-type_: `online` or `external`. Read more below in this section |
 | `state`          | (optional) object         | object representing the current state of the appointment. See **Appointment State** section below                 |
-| `ts`             | string                    | Appointment creation datetime string, in ISO-8601 format                                                          |
+| `ts`             | string                    | Appointment creation Date Time in ISO-8601 format, UTC                                                            |
 
 ---
 
