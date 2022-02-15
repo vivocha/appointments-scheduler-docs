@@ -1110,7 +1110,7 @@ where `status` is a string that can be one of the following values: `OK`, `EARLY
 
 The Stats API allows to get Statistics about Appointments and Calendars.
 
-Only Private endpoints are available for this API. These endpoints are authenticated.
+Only private endpoints are available. These endpoints are authenticated.
 
 Base URL for private endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
 
@@ -1118,7 +1118,9 @@ All API endpoints accept JSON bodies, when applicable. Most of them return respo
 
 `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/openapi.json`
 
-> **IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.** >**IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
+> **IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
+>
+> > **IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
 
 ### Stats Private Endpoints
 
@@ -1127,19 +1129,19 @@ All API endpoints accept JSON bodies, when applicable. Most of them return respo
 Without any query param it returns general stats for all the Appointments taken by a specified account.
 Available query params are the following:
 
-`fromDate`: optional, the Appointment slot start date to get stats from. It MUST be in UTC and in ISO 8601 format. Refers to the `fromDate` Appointment property.
+`fromDate`: optional, the Appointment slot start date to get stats from. It MUST be in UTC and in ISO 8601 format. It refers to the `fromDate` Appointment property..
 
-`toDate`: optional, the Appointment slot end date to get stats to. It MUST be in UTC and in ISO 8601 format. Refers to the `endDate` Appointment property.
+`toDate`: optional, the Appointment slot end date to end getting stats. It MUST be in UTC and in ISO 8601 format. It refers to the `endDate` Appointment property..
 
-`fromTs`: optional, the Appointment creation date to get stats from. It MUST be in UTC and in ISO 8601 format. Refers to the `ts` Appointment property.
+`fromTs`: optional, the Appointment creation date to get stats from. It MUST be in UTC and in ISO 8601 format. It refers to the `ts` Appointment property.
 
-`toTs`: optional, the Appointment creation date to get stats to. It MUST be in UTC and in ISO 8601 format. Refers to the `ts` Appointment property.
+`toTs`: optional, the Appointment creation date to end getting stats. It MUST be in UTC and in ISO 8601 format. It refers to the `ts` Appointment property.
 
-`calendarId`: optional, id of the Calendar which the appointment belongs. If specified, the endpoint returns stats about the Appointments belonging to that Calendar.
+`calendarId`: optional, id of the Calendar which the appointment belongs. If specified, the endpoint returns stats about the Appointments belonging to that Calendar..
 
 > **IMPORTANT: date properties should be used consistently. Use `fromDate` and `toDate` properties OR `fromTs` and `toTS`. Do not mix any of those properties.**
 
-This API endpoint returns a JSON, like the following:
+This endpoint returns a JSON, like the following:
 
 ```json
 {
