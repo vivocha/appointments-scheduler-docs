@@ -6,7 +6,7 @@
 | :-----------------------------------------------------------------------------------------------: |
 |                                                                                                   |
 
-_version 2.2.0_ - last update: _01/01/2022_
+_version 2.3.0_ - last update: _15/02/2022_
 
 ---
 
@@ -1108,7 +1108,7 @@ where `status` is a string that can be one of the following values: `OK`, `EARLY
 
 ## Stats API
 
-The Stats API allows to get Statistics about Appointments and Calendars.
+The Stats API allows to get statistics about Appointments and Calendars.
 
 Only private endpoints are available. These endpoints are authenticated.
 
@@ -1129,9 +1129,9 @@ All API endpoints accept JSON bodies, when applicable. Most of them return respo
 Without any query param it returns general stats for all the Appointments taken by a specified account.
 Available query params are the following:
 
-`fromDate`: optional, the Appointment slot start date to get stats from. It MUST be in UTC and in ISO 8601 format. It refers to the `fromDate` Appointment property..
+`fromDate`: optional, the Appointment slot start date to get stats from. It MUST be in UTC and in ISO 8601 format. It refers to the `fromDate` Appointment property.
 
-`toDate`: optional, the Appointment slot end date to end getting stats. It MUST be in UTC and in ISO 8601 format. It refers to the `endDate` Appointment property..
+`toDate`: optional, the Appointment slot end date to end getting stats. It MUST be in UTC and in ISO 8601 format. It refers to the `endDate` Appointment property.
 
 `fromTs`: optional, the Appointment creation date to get stats from. It MUST be in UTC and in ISO 8601 format. It refers to the `ts` Appointment property.
 
