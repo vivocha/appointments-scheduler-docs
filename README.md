@@ -30,6 +30,8 @@ _version 2.2.0_ - last update: _01/01/2022_
 - [Appointment API](#appointment-api)
   - [Private Endpoints](#appointment-private-endpoints)
   - [Public Endpoints](#appointment-public-endpoints)
+- [Stats API](#stats-api)
+  - [Stats Private Endpoints](#stats-private-endpoints)
 - [Interaction Engine Blocks](#interaction-engine-blocks)
   - [Get Appointments Types](#get-appointment-types)
   - [Get Availabilities](#get-availabilities)
@@ -1103,6 +1105,59 @@ It returns an object like the following:
 ```
 
 where `status` is a string that can be one of the following values: `OK`, `EARLY`, `LATE`, `CANCELLED`, or `COMPLETE`.
+
+## Stats API
+
+The Stats API allows to get Statistics about Appointments and Calendars. Only Private endpoints are available for this API. These endpoints are authenticated.
+Base URL for private endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
+
+All API endpoints accept JSON bodies, when applicable. Most of them return responses in JSON format, when applicable and where not explicitely documented. Full, parsable, API documentation is always available in OpenAPI 3.x format at URLs:
+
+`https://{vivocha-world}.vivocha.com/a/{account}/api/v3/openapi.json`
+
+> **IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.** >**IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
+
+### Stats Private Endpoints
+
+`GET /stats/general`
+
+Without any query param returns general stats for all the Appointments taken by the account.
+Available query params are the following:
+
+`fromDate`: optional, the Appointment slot start date to get stats from. It MUST be in UTC and in ISO 8601 format. Refers to the `fromDate` Appointment property.
+
+`toDate`: optional, the Appointment slot end date to get stats to. It MUST be in UTC and in ISO 8601 format. Refers to the `endDate` Appointment property.
+
+`fromTs`: optional, the Appointment creation date to get stats from. It MUST be in UTC and in ISO 8601 format. Refers to the `ts` Appointment property.
+
+`toTs`: optional, the Appointment creation date to get stats to. It MUST be in UTC and in ISO 8601 format. Refers to the `ts` Appointment property.
+
+`calendarId`: optional, id of the Calendar which the appointment belongs. If specified get stats of the Appointments of that Calendar.
+
+> **IMPORTANT: date params should be used consistently. For example `fromDate` and `toDate` should never be used with `toDate` and `fromTs` and viceversa.**
+
+It returns an object like the following:
+
+```json
+{
+  "total": 30,
+  "completed": 13,
+  "cancelled": {
+    "total": 9,
+    "byCustomer": 4,
+    "byAgent": 5
+  },
+  "ongoing": 17
+}
+```
+
+`total`: total number of the appointments. Is the sum of the completed and ongoing appointments.
+
+`completed`: total number of the completed appointments. Completed appointments include cancelled appointments too.
+
+`cancelled`: an object that contains cancelled appointments by customers and by agents and their sum (`total`). A cancelled appointment is a completed appointment with details about the cancellation.
+
+`ongoing`: ongoing appointments. It is be the difference between the number of total appointments and number of completed appointments.
 
 ## Interaction Engine Blocks
 
