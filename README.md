@@ -1108,7 +1108,10 @@ where `status` is a string that can be one of the following values: `OK`, `EARLY
 
 ## Stats API
 
-The Stats API allows to get Statistics about Appointments and Calendars. Only Private endpoints are available for this API. These endpoints are authenticated.
+The Stats API allows to get Statistics about Appointments and Calendars.
+
+Only Private endpoints are available for this API. These endpoints are authenticated.
+
 Base URL for private endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
 
 All API endpoints accept JSON bodies, when applicable. Most of them return responses in JSON format, when applicable and where not explicitely documented. Full, parsable, API documentation is always available in OpenAPI 3.x format at URLs:
@@ -1119,9 +1122,9 @@ All API endpoints accept JSON bodies, when applicable. Most of them return respo
 
 ### Stats Private Endpoints
 
-`GET /stats/general`
+#### GET `/stats/general`
 
-Without any query param returns general stats for all the Appointments taken by the account.
+Without any query param it returns general stats for all the Appointments taken by a specified account.
 Available query params are the following:
 
 `fromDate`: optional, the Appointment slot start date to get stats from. It MUST be in UTC and in ISO 8601 format. Refers to the `fromDate` Appointment property.
@@ -1132,11 +1135,11 @@ Available query params are the following:
 
 `toTs`: optional, the Appointment creation date to get stats to. It MUST be in UTC and in ISO 8601 format. Refers to the `ts` Appointment property.
 
-`calendarId`: optional, id of the Calendar which the appointment belongs. If specified get stats of the Appointments of that Calendar.
+`calendarId`: optional, id of the Calendar which the appointment belongs. If specified, the endpoint returns stats about the Appointments belonging to that Calendar.
 
-> **IMPORTANT: date params should be used consistently. For example `fromDate` and `toDate` should never be used with `toDate` and `fromTs` and viceversa.**
+> **IMPORTANT: date properties should be used consistently. Use `fromDate` and `toDate` properties OR `fromTs` and `toTS`. Do not mix any of those properties.**
 
-It returns an object like the following:
+This API endpoint returns a JSON, like the following:
 
 ```json
 {
@@ -1151,13 +1154,15 @@ It returns an object like the following:
 }
 ```
 
-`total`: total number of the appointments. Is the sum of the completed and ongoing appointments.
+Where:
 
-`completed`: total number of the completed appointments. Completed appointments include cancelled appointments too.
+`total`: total number of the appointments set in the given interval. It is the sum of the completed and the ongoing appointments.
 
-`cancelled`: an object that contains cancelled appointments by customers and by agents and their sum (`total`). A cancelled appointment is a completed appointment with details about the cancellation.
+`completed`: total number of the completed appointments. Completed appointments include cancelled appointments, too.
 
-`ongoing`: ongoing appointments. It is be the difference between the number of total appointments and number of completed appointments.
+`cancelled`: an object that contains stats aboyt cancelled appointments, by customers and/or by agents and their sum (`total`). A cancelled appointment is a also a completed appointment, with details about the cancellation.
+
+`ongoing`: ongoing appointments; In other words: Appointments set that aren't completed. Or, the difference between the number of total appointments and the number of completed ones.
 
 ## Interaction Engine Blocks
 
