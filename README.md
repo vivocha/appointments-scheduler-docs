@@ -1124,7 +1124,7 @@ All API endpoints accept JSON bodies, when applicable. Most of them return respo
 
 ### Stats Private Endpoints
 
-#### GET `/stats/general`
+#### GET `/appointments-stats/general`
 
 Without any query param it returns general stats for all the Appointments taken by a specified account.
 Available query params are the following:
