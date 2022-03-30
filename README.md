@@ -40,7 +40,6 @@ _version 2.5.0_ - last update: _29/03/2022_
   - [Set Appointment](#set-appointment)
 
 ---
-
 ---
 
 ## Overview
@@ -97,15 +96,16 @@ In the current version of the Appointments Scheduler, a Calendar has the followi
 Current version provides a static configuration of the Calendar.
 Calendar Configuration properties follow:
 
-| PROPERTY                    | VALUE                      | DESCRIPTION                                                                                                                                                                                                                                                                                              |
-| --------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `availabilityHours`         | (optional) object          | defines the general availability (when an appointment can be set) days and hours of the Calendar, including exceptions (when an appointment can't be set). An AppointmentType can add its own availability exceptions. Availability Hours are in the same format as the Vivocha Campaign's Opening Hours |
-| `maxConcurrentAppointments` | (optional) number, integer | the maximum number of concurrent appointments that can be set in this calendar. Appointment Types can decrease the max concurrent number for a particular type of appointment                                                                                                                            |
-| `tags`                      | (optional) array of string | Calendar tags (currently not used)                                                                                                                                                                                                                                                                       |
-| `exclusiveAgents`           | (optional) array of string | a list of Vivocha Agents Ids (currently not used)                                                                                                                                                                                                                                                        |
-| `email`                     | (optional) object          | configuration object for the emails to send to customers, see below in this section                                                                                                                                                                                                                      |
-| `webTemplates`              | (optional) object          | strings to be shown to customers on a browser, for example when it cancels an appointment by a link in an email. Strings are set by language code. See below in the next sections                                                                                                                        |
-| `landingPageUrl`            | (optional) string          | the URL of the page to redirect customers to join the online appointment                                                                                                                                                                                                                                 |
+| PROPERTY                    | VALUE                      | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| --------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `availabilityHours`         | (optional) object          | defines the general availability (when an appointment can be set) days and hours of the Calendar, including exceptions (when an appointment can't be set). An AppointmentType can add its own availability exceptions. Availability Hours are in the same format as the Vivocha Campaign's Opening Hours. To include a whole day interval, simply exclude the hours property from the interval. However this practice is not recommended, it's a good practice, and a more effective way to set availability hours, specifying the precise range of hours that are really useful, depending on the business case; for example: 9-18, 8-17, and so on... A detailed description of the [**Opening Hours** format can be found in the dedicated section of this document](#opening-hours). |
+|                             |
+| `maxConcurrentAppointments` | (optional) number, integer | the maximum number of concurrent appointments that can be set in this calendar. Appointment Types can decrease the max concurrent number for a particular type of appointment                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `tags`                      | (optional) array of string | Calendar tags (currently not used)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `exclusiveAgents`           | (optional) array of string | a list of Vivocha Agents Ids (currently not used)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `email`                     | (optional) object          | configuration object for the emails to send to customers, see below in this section                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `webTemplates`              | (optional) object          | strings to be shown to customers on a browser, for example when it cancels an appointment by a link in an email. Strings are set by language code. See below in the next sections                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `landingPageUrl`            | (optional) string          | the URL of the page to redirect customers to join the online appointment                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
 ---
 
@@ -222,7 +222,7 @@ An Appointment Type defines several properties, summarized by the next table:
 | `ignorePaddingOnLastSlot`   | (optional) boolean         | do not use `paddingAfter` on the last slot of the day in availability computing. **Default is `false`**; in other words, by default the `paddingAfter` value (if set) is also added to the last slot of the day when slots availability computing is performed. This could result in excluding that slot if `duration + paddingAfter` generates a slot which exceedes the service closing hour in that day.                                                    |
 | `validity`                  | (optional) object          | validity represents the interval of time when an appointment joining/landing can be considered valid before considering the customer in late or too early. The validity object has the following optional two properties: `before` and `after`, both numbers, expressed in minutes. Default value is 3 minutes for both properties.                                                                                                                            |
 | `isActive`                  | (optional) boolean         | an Appointment type can be deactivated (currently not used)                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `availabilityHours`         | (optional) object          | like the Calendar's availability hours but only `exceptions` can be configured in an Appointment Type. It can be used to restrict the availabilities for the particular type. E.g. to configure to not accept appointments of the specific type on Mondays, or on every afternoon.                                                                                                                                                                             |
+| `availabilityHours`         | (optional) object          | like the Calendar's availability hours but only `exceptions` can be configured in an Appointment Type. It can be used to restrict the availabilities for the particular type. E.g. to configure to not accept appointments of the specific type on Mondays, or on every afternoon. A detailed description of the [**Opening Hours** format can be found in the dedicated section of this document](#opening-hours).                                            |
 | `maxConcurrentAppointments` | number, integer            | the maximum number of concurrent appointments that can be set for the specific Appointment Type. If the `maxConcurrentAppointments` is already set at Calendar-level, then this property can be used only to narrow that value (and not to increase it). E.g., if Calendar `maxConcurrentAppointments` property is set to 10, the Appointment Type can specify a smaller value and not a bigger one. In any case, the smaller of the two will be finally used. |
 | `settings`                  | (optional) object          | settings object, depending on the appointment _macro-type_, Online or External, read more below in this section                                                                                                                                                                                                                                                                                                                                                |
 
@@ -300,6 +300,7 @@ Once created and set, an Appointment has the following properties:
 | `code`           | string                    | unique, generated Appointment Code                                                                                |
 | `context`        | object                    | Appointment context data, it depends on the _macro-type_: `online` or `external`. Read more below in this section |
 | `state`          | (optional) object         | object representing the current state of the appointment. See **Appointment State** section below                 |
+| `ts`             | string                    | Appointment creation Date Time in ISO-8601 format, UTC                                                            |
 
 ---
 
@@ -1157,6 +1158,66 @@ where `status` is a string that can be one of the following values: `OK`, `EARLY
 
 ---
 
+## Stats API
+
+The Stats API allows to get statistics about Appointments and Calendars.
+
+Only private endpoints are available. These endpoints are authenticated.
+
+Base URL for private endpoints: `https://{vivocha-world}.vivocha.com/a/{account}/api/v3`
+
+All API endpoints accept JSON bodies, when applicable. Most of them return responses in JSON format, when applicable and where not explicitely documented. Full, parsable, API documentation is always available in OpenAPI 3.x format at URLs:
+
+`https://{vivocha-world}.vivocha.com/a/{account}/api/v3/openapi.json`
+
+> **IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
+
+> **IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
+
+### Stats Private Endpoints
+
+#### GET `/appointments-stats/general`
+
+Without any query param it returns general stats for all the Appointments taken by a specified account.
+Available query params are the following:
+
+`fromDate`: optional, the Appointment slot start date to get stats from. It MUST be in UTC and in ISO 8601 format. It refers to the `fromDate` Appointment property.
+
+`toDate`: optional, the Appointment slot end date to end getting stats. It MUST be in UTC and in ISO 8601 format. It refers to the `endDate` Appointment property.
+
+`fromTs`: optional, the Appointment creation date to get stats from. It MUST be in UTC and in ISO 8601 format. It refers to the `ts` Appointment property.
+
+`toTs`: optional, the Appointment creation date to end getting stats. It MUST be in UTC and in ISO 8601 format. It refers to the `ts` Appointment property.
+
+`calendarId`: optional, id of the Calendar which the appointment belongs. If specified, the endpoint returns stats about the Appointments belonging to that Calendar..
+
+> **IMPORTANT: date properties should be used consistently. Use `fromDate` and `toDate` properties OR `fromTs` and `toTS`. Do not mix any of those properties.**
+
+This endpoint returns a JSON, like the following:
+
+```json
+{
+  "total": 30,
+  "completed": 13,
+  "cancelled": {
+    "total": 9,
+    "byCustomer": 4,
+    "byAgent": 5
+  },
+  "ongoing": 17
+}
+```
+
+Where:
+
+`total`: total number of the appointments set in the given interval. It is the sum of the completed and the ongoing appointments.
+
+`completed`: total number of the completed appointments. Completed appointments include cancelled appointments, too.
+
+`cancelled`: an object that contains stats aboyt cancelled appointments, by customers and/or by agents and their sum (`total`). A cancelled appointment is a also a completed appointment, with details about the cancellation.
+
+`ongoing`: ongoing appointments; In other words: Appointments set that aren't completed. Or, the difference between the number of total appointments and the number of completed ones.
+
 ## Interaction Engine Blocks
 
 The Vivocha Interaction Engine has three new blocks dedicated to the Appointments Scheduler.
@@ -1270,8 +1331,288 @@ The `location` property is an object like the following:
 }
 ```
 
+## Opening Hours
+
+Vivocha Opening Hours is an object that allows you to define when a support center is open and active. This operation can be done defining a list of time intervals and specifying, if necessary, a list of exceptions (when the support center is not available).
+
+The OpeningHours object has the following properties:
+
+| PROPERTY     | VALUE                              | DESCRIPTION                                                         |
+| ------------ | ---------------------------------- | ------------------------------------------------------------------- |
+| `intervals`  | (optional) array of `TimeInterval` | List of opening hours intervals expressed in `TimeInterval` format. |
+| `exceptions` | (optional) array of `TimeInterval` | List of exception intervals expressed in `TimeInterval` format.     |
+
+### TimeInterval
+
+`TimeInterval` can be defined specifing `hours` and `minutes` properties (for days); days of the week (`dayOfWeek`), days of the month (`dayOfMonth`), months and years.
+
+| PROPERTY     | VALUE                    | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hours`      | (optional) ValueInterval | The starting and the ending hours of the days. To include a whole day interval, simply exclude the hours property from the interval. However this practice is not recommended, it's a good practice, and a more effective way to set hours, specifying the precise range of hours that are really useful, depending on the business case; for example: 9-18, 8-17, and so on... |
+| `minutes`    | (optional) ValueInterval | Specifies the starting and the ending minutes related to the previously defined hours in the `hours` property. Must be used in conjunction with the `hours` property.                                                                                                                                                                                                           |
+| `dayOfWeek`  | (optional) ValueInterval | The interval of the week.                                                                                                                                                                                                                                                                                                                                                       |
+| `dayOfMonth` | (optional) ValueInterval | Days of the month                                                                                                                                                                                                                                                                                                                                                               |
+| `month`      | (optional) ValueInterval | Months of the year starting from 1 (January) to 12 (December).                                                                                                                                                                                                                                                                                                                  |
+| `year`       | (optional) ValueInterval | Years included in the interval                                                                                                                                                                                                                                                                                                                                                  |
+
+All of these properties are optional and expressed in `ValueInterval` format that describes a time interval that has a beginning and an end. A `ValueInterval` object has the following properties:
+
+| PROPERTY | VALUE             | DESCRIPTION               |
+| -------- | ----------------- | ------------------------- |
+| `from`   | (optional) number | The start of the interval |
+| `to`     | (optional) number | The end of the interval   |
+
+The interval of the week `dayOfWeek` indicates the number of the day as follows:
+
+| Value | Description         |
+| ----- | ------------------- |
+| 1     | Indicates Monday    |
+| 2     | Indicates Tuesday   |
+| 3     | Indicates Wednesday |
+| 4     | Indicates Thursday  |
+| 5     | Indicates Friday    |
+| 6     | Indicates Saturday  |
+| 7     | Indicates Sunday    |
+
+If no `TimeInterval`property is defined, opening hours are always valid, thus the support center is always open. When a property is not defined is implied that the value of that property is the maximum interval property.
+
+For example if you want to set this opening hours: _every day from 9:00 to 17:00_, then the `intervals` array must contain a single `TimeInterval` object like the following:
+
+```json
+{
+  "intervals": [
+    {
+      "hours": {
+        "from": 9,
+        "to": 17
+      }
+    }
+  ]
+}
+```
+
+### Some Examples
+
+#### Hours
+
+_An interval from monday to friday from 9:00 to 17:00:_
+
+```json
+{
+  "intervals": [
+    {
+      "dayOfWeek": {
+        "from": 1,
+        "to": 5
+      },
+      "hours": {
+        "from": 9,
+        "to": 17
+      }
+    }
+  ]
+}
+```
+
+#### Minutes
+
+_An interval from 9:15 to 18:30:_
+
+```json
+{
+  "intervals": [
+    {
+      "hours": {
+        "from": 9,
+        "to": 18
+      },
+      "minutes": {
+        "from": 15,
+        "to": 30
+      }
+    }
+  ]
+}
+```
+
+#### Days of week
+
+_An interval from monday to friday:_
+
+```json
+{
+  "intervals": [
+    {
+      "dayOfWeek": {
+        "from": 1,
+        "to": 5
+      }
+    }
+  ]
+}
+```
+
+#### Days of Month
+
+_An interval from the 12th to the 23th day (included) of the month:_
+
+```json
+{
+  "intervals": [
+    {
+      "dayOfMonth": {
+        "from": 12,
+        "to": 23
+      }
+    }
+  ]
+}
+```
+
+#### Months
+
+The following example shows an interval _'from January to June'_:
+
+```json
+{
+  "intervals": [
+    {
+      "month": {
+        "from": 1,
+        "to": 6
+      }
+    }
+  ]
+}
+```
+
+#### Years
+
+_'An interval from 2021 to 2022'_ defining the `year` property:
+
+```json
+{
+  "intervals": [
+    {
+      "year": {
+        "from": 2021,
+        "to": 2022
+      }
+    }
+  ]
+}
+```
+
+_An interval from January to May only for the year 2021:_
+
+```json
+{
+  "intervals": [
+    {
+      "month": {
+        "from": 1,
+        "to": 5
+      },
+      "year": {
+        "from": 2021,
+        "to": 2021
+      }
+    }
+  ]
+}
+```
+
+### An Opening Hours Complete JSON Example
+
+The following example defines the opening hours of a support center opened _from monday to Friday from 9:15 to 17:30. The support center is closed during these intervals_ (`exceptions`):
+
+- _on June 2nd (every year)_
+
+- _on June 16th of 2023 from 9:00 to 13:00_
+- _from 22nd to 31st December from 13:15 to 17:30_
+- _on 1st of every month of the year 2023_
+
+```json
+{
+  "intervals": [
+    {
+      "dayOfWeek": {
+        "from": 1,
+        "to": 5
+      },
+      "hours": {
+        "from": 9,
+        "to": 17
+      },
+      "minutes": {
+        "from": 15,
+        "to": 30
+      }
+    }
+  ],
+  "exceptions": [
+    {
+      "dayOfMonth": {
+        "from": 2,
+        "to": 2
+      },
+      "month": {
+        "from": 6,
+        "to": 6
+      }
+    },
+    {
+      "dayOfMonth": {
+        "from": 16,
+        "to": 16
+      },
+      "month": {
+        "from": 6,
+        "to": 6
+      },
+      "year": {
+        "from": 2023,
+        "to": 2023
+      },
+      "hours": {
+        "from": 9,
+        "to": 13
+      }
+    },
+    {
+      "dayOfMonth": {
+        "from": 22,
+        "to": 31
+      },
+      "month": {
+        "from": 12,
+        "to": 12
+      },
+      "hours": {
+        "from": 13,
+        "to": 17
+      },
+      "minutes": {
+        "from": 15,
+        "to": 30
+      }
+    },
+    {
+      "dayOfMonth": {
+        "from": 1,
+        "to": 1
+      },
+      "year": {
+        "from": 2023,
+        "to": 2023
+      }
+    }
+  ]
+}
+```
+
 ---
 
-Feel free to report an error in the documentation, a typo or missing documentation opening an issue in this repo.
+Feel free to report an error in this documentation, a typo, or missing documentation opening an issue in this repo.
 
 Thank you.
