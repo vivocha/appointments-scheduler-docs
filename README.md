@@ -459,15 +459,13 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 
 #### Calendar Private Endpoints
 
-##### Calendars CRUD
-
-###### GET `/calendars
+##### GET `/calendars`
 
 Get a list of Calendars.
 
 This endpoint also supports [RQL Queries](#rql-queries), [Pagination](#pagination) and [CSV export](#csv-format) URL query parameters.
 
-###### POST `/calendars`
+##### POST `/calendars`
 
 Create a new Calendar.
 
@@ -771,7 +769,7 @@ Example of JSON body:
 }
 ```
 
-###### GET `/calendars/{id}`
+##### GET `/calendars/{id}`
 
 Get a specific Calendar in JSON.
 
@@ -787,11 +785,11 @@ Available query parameters are:
 
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. This parameter takes effect only when `format` parameter is set to `ical`. If set to false or not specified, then the event doesn't include the padding in the iCalendar format
 
-###### PUT `/calendars/{id}`
+##### PUT `/calendars/{id}`
 
 Edit/update a Calendar. Body must be a full Calendar JSON, like in POST (create) request.
 
-###### PATCH `/calendars/{id}`
+##### PATCH `/calendars/{id}`
 
 Update single properties of a Calendar.
 Example of a body request:
@@ -823,11 +821,11 @@ Another example, referencing an array item (an Appointment Type to change the `p
 ]
 ```
 
-###### DELETE `/calendars/{id}`
+##### DELETE `/calendars/{id}`
 
 Delete a Calendar.
 
-###### GET `/calendars/{id}/actions/get-ical-url`
+##### GET `/calendars/{id}/actions/get-ical-url`
 
 Return an object containing the Calendar complete URL endpoint to be used to download it in iCalendar format, or to be used to subscribe to the Calendar by a Calendar application client.
 The returned URL contains a `token` parameter already set.
@@ -840,7 +838,7 @@ This endpoint returns a JSON like the following:
 }
 ```
 
-###### GET `/calendars/{id}/actions/is-slot-available?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>`
+##### GET `/calendars/{id}/actions/is-slot-available?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>`
 
 Returns an object containing a `isAvailable` boolean property. It is `true` if the specified slot start date for a given appointment type is available; `false` otherwise.
 
@@ -874,7 +872,7 @@ The current version the availabilities algorithm works as follows:
 - finally, it excludes the slots which already have the relative maximum number of concurrent appointments, or they don't satisfy the availabilityHours; if a slot is rejected, next processed slot will be the one after previous slot's _start date + duration + (padding after, if set)_;
 - valid, resulting, available slots are returned for the number of specified days.
 
-###### GET `/calendars/{id}/availabilities?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>&days=<days>`
+##### GET `/calendars/{id}/availabilities?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>&days=<days>`
 
 Get a JSON object with availabilities.
 
@@ -965,7 +963,7 @@ If the specified `appointmentType` parameter refers to an Appointment Type which
 
 Retrieve a list of JSON appointments set in the referenced Calendar.
 
-###### GET `/calendars/{id}/appointments[?fromDate=<start-date>&toDate=<end-date>&complete=<boolean>]`
+##### GET `/calendars/{id}/appointments[?fromDate=<start-date>&toDate=<end-date>&complete=<boolean>]`
 
 Return a list of appointments.
 The available, optional, query params are the following:
@@ -1022,15 +1020,13 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 
 #### Appointment Private Endpoints
 
-##### Appointments CRUD
-
-###### GET `/appointments`
+##### GET `/appointments`
 
 Returns a paginated list of appointments related to the specified account.
 
 This endpoint also supports [RQL Queries](#rql-queries), [Pagination](#pagination) and [CSV export](#csv-format) URL query parameters.
 
-###### POST `/appointments[?sendEmails=true|false]`
+##### POST `/appointments[?sendEmails=true|false]`
 
 Create a new Appointment.
 
@@ -1074,7 +1070,7 @@ Examples of create an Appointment JSON body contents follows.
 }
 ```
 
-###### JSON body to create a new _External_ appointment
+##### JSON body to create a new _External_ appointment
 
 ```json
 {
@@ -1094,11 +1090,11 @@ Examples of create an Appointment JSON body contents follows.
 }
 ```
 
-###### GET `/appointments/{id}`
+##### GET `/appointments/{id}`
 
 Get an appointment.
 
-###### DELETE `/appointments/{id}[?sendEmails=true|false]`
+##### DELETE `/appointments/{id}[?sendEmails=true|false]`
 
 Cancel and delete an Appointment.
 
@@ -1108,7 +1104,7 @@ The available, optional, query parameter is the following:
 
 ##### Actions
 
-###### POST `/appointments/{id}/actions/cancel[?sendEmails=true|false]`
+##### POST `/appointments/{id}/actions/cancel[?sendEmails=true|false]`
 
 Cancel an Appointment.
 The available, optional, query parameter is the following:
