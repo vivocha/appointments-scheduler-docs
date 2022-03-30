@@ -6,7 +6,7 @@
 | :-----------------------------------------------------------------------------------------------: |
 |                                                                                                   |
 
-_version 2.2.0_ - last update: _01/01/2022_
+_version 2.5.0_ - last update: _29/03/2022_
 
 ---
 
@@ -24,12 +24,16 @@ _version 2.2.0_ - last update: _01/01/2022_
 - [Appointment](#appointment)
   - [Appointment Context](#appointment-context)
   - [Appointment State](#appointment-state)
-- [Calendar API](#calendar-api)
-  - [Private Endpoints](#calendar-private-endpoints)
-  - [Public Endpoints](#calendar-public-endpoints)
-- [Appointment API](#appointment-api)
-  - [Private Endpoints](#appointment-private-endpoints)
-  - [Public Endpoints](#appointment-public-endpoints)
+- [API](#api)
+  - [RQL Queries](#rql-queries)
+  - [Pagination](#pagination)
+  - [CSV Format](#csv-format)
+  - [Calendar API](#calendar-api)
+    - [Private Endpoints](#calendar-private-endpoints)
+    - [Public Endpoints](#calendar-public-endpoints)
+  - [Appointment API](#appointment-api)
+    - [Private Endpoints](#appointment-private-endpoints)
+    - [Public Endpoints](#appointment-public-endpoints)
 - [Interaction Engine Blocks](#interaction-engine-blocks)
   - [Get Appointments Types](#get-appointment-types)
   - [Get Availabilities](#get-availabilities)
@@ -41,7 +45,7 @@ _version 2.2.0_ - last update: _01/01/2022_
 
 ## Overview
 
-The Appointments Scheduler is a module of the Vivocha platform which allows to set and manage appointments with customers. Appointments can be both online and "physical", location-based.
+The Appointments Scheduler is a module of the Vivocha platform which allows to set and manage appointments with customers. Appointments can be both _online_ and _physical_, location-based.
 
 The Appointments Scheduler exposes a public and a private API, and also can send emails to customers in different moments: to confirm the appointment, and two reminders.
 
@@ -347,7 +351,93 @@ After an Appointment has been created and set, it has a set of properties that r
 
 ---
 
-## Calendar API
+## API
+
+The Appointments Scheduler API is divided into two sets: the **Calendar API** and the **Appointment API**, which in turn contain the **private endpoints** and the **public endpoints**.
+
+> **IMPORTANT: ALL dates in API call responses are UTC based and in a valid date-time ISO 8601 format. ALL dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
+
+> **IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
+
+Some API endpoints **have limitations** (i.e., listing endpoints) on the number of returned resources. Where explicitely written, then you must use pagination to retrieve all the resources you need.
+
+The API endpoints return standard HTTP status codes and, in some cases, a JSON body in case of error.
+
+### RQL Queries
+
+The API endpoints that explicitely support RQL queries, expose the following **URL query parameter**:
+
+**`q`**: string, a Resource Query Language (RQL) command in string format. Included to execute a query following the RQL specification. The RQL query string **MUST be URI encoded** and must follow the RQL specification.
+
+For example:
+
+`?q=eq(name,appointment%20one)`: return a list of appointments with name equal to `appointment one`
+
+`?q=matches(name,one)`: return a list of appointments where the name contains the word `one`, used here as a regular expression.
+
+### Pagination
+
+The API endpoints that explicitely support pagination (like listing operations, usually), expose what follows:
+
+#### Pagination URL Query Parameters
+
+**`limit`**: integer number to limit the number of results to return;
+
+**`skip`**: integer, the number of elements to skip in the returned list of results; used with the `limit` parameter it allows to paginate the results. The response HTTP headers below return info about pagination.
+
+Examples:
+
+```sh
+?limit=10&skip=10
+```
+
+```sh
+?limit=20&skip=40
+```
+
+```sh
+?limit=30&skip=90
+```
+
+#### Pagination HTTP Response Headers
+
+**`Results-Matching`**: the total number of elements matching the query (as if no limit is set);
+
+**`Results-Skipped`**: the number of skipped elements resulting from applying the `skip` parameter value;
+
+**`Link`**: the direct API endpoint URL to get the "next page" of elements.
+
+### CSV Format
+
+Some API endpoints allows to list resources (like Calendars and Appointments) using the CSV format, instead of JSON. The endpoints that explicitely support CSV export, sport the following **URL query parameter**.
+
+#### CSV URL Query Parameters
+
+**`format=csv`**: this query parameter enables the export in CSV format, its value is always set to `csv` and MUST BE used in conjunction with the `csv_fields` parameter;
+
+**`csv_fields`**: mandatory for CSV format, it is an array of resource fields to include in the csv. E.g.:  csv_fields=summary,code,context.type;
+
+**`csv_names`**: CSV custom field names, an array to modify the names of the exported csv fields;
+
+**`csv_options`**: an array of options. The available csv options are the following:
+
+- `unwind`: unwind array field with specified name. E.g., `unwind=anArrayField`
+- `separator`: field separator character (default: ","). E.g., `separator=;`
+- `decimal`: decimal separator character (default: "."). E.g., `decimal=,`
+- `eol`: End-of-line character sequence
+- `dateFormat`: Format date according to pattern (see [this doc](https://moment.github.io/luxon/#/formatting?id=table-of-tokens) for details)
+- `timezone`: Format times according to timezone (e.g. Europe/Rome)
+- `header`: boolean, include header with field names
+- `quotes`: boolean, quote all values
+- `filename`: strng, download as filename. E.g., `filename=appointments.csv`.
+  
+**Example of a query string containing an export in csv**:
+
+`?format=csv&csv_fields=code,summary,context.type&csv_names=Code,Summary,Context Type&csv_options=header=true,separator=;,filename=appointments.csv`
+
+---
+
+### Calendar API
 
 The Calendar API allows to manage Calendars and perform actions on them.
 
@@ -366,31 +456,17 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 
 > **IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.** >**IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
 
-### Calendar Private Endpoints
+#### Calendar Private Endpoints
 
-#### CRUD
+##### Calendars CRUD
 
-##### GET `/calendars[?q=<rql-string>]`
+###### GET `/calendars
 
 Get a list of Calendars.
 
-The available, optional, query params are the following:
+This endpoint also supports [RQL Queries](#rql-queries), [Pagination](#pagination) and [CSV export](#csv-format) URL query parameters.
 
-`q`: a Resource Query Language (RQL) command as string. Included to execute a query following the RQL specification.
-
-The RQL query string must be compliant to the RQL specification.
-
-Some examples of getting a list of Calendars using RQL are the following:
-
-**GET `/calendars?q=eq(name,MyCalendar)`**
-
-return a list of calendars with name equal to `MyCalendar`.
-
-**GET `/calendars?q=matches(name,one)`**
-
-return a list of calendars where the name contains the word to `one`, used here as a regular expression.
-
-##### POST `/calendars`
+###### POST `/calendars`
 
 Create a new Calendar.
 
@@ -694,7 +770,7 @@ Example of JSON body:
 }
 ```
 
-##### GET `/calendars/{id}`
+###### GET `/calendars/{id}`
 
 Get a specific Calendar in JSON.
 
@@ -710,11 +786,11 @@ Available query parameters are:
 
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. This parameter takes effect only when `format` parameter is set to `ical`. If set to false or not specified, then the event doesn't include the padding in the iCalendar format
 
-##### PUT `/calendars/{id}`
+###### PUT `/calendars/{id}`
 
 Edit/update a Calendar. Body must be a full Calendar JSON, like in POST (create) request.
 
-##### PATCH `/calendars/{id}`
+###### PATCH `/calendars/{id}`
 
 Update single properties of a Calendar.
 Example of a body request:
@@ -746,11 +822,11 @@ Another example, referencing an array item (an Appointment Type to change the `p
 ]
 ```
 
-##### DELETE `/calendars/{id}`
+###### DELETE `/calendars/{id}`
 
 Delete a Calendar.
 
-##### GET `/calendars/{id}/actions/get-ical-url`
+###### GET `/calendars/{id}/actions/get-ical-url`
 
 Return an object containing the Calendar complete URL endpoint to be used to download it in iCalendar format, or to be used to subscribe to the Calendar by a Calendar application client.
 The returned URL contains a `token` parameter already set.
@@ -763,7 +839,7 @@ This endpoint returns a JSON like the following:
 }
 ```
 
-##### GET `/calendars/{id}/actions/is-slot-available?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>`
+###### GET `/calendars/{id}/actions/is-slot-available?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>`
 
 Returns an object containing a `isAvailable` boolean property. It is `true` if the specified slot start date for a given appointment type is available; `false` otherwise.
 
@@ -783,7 +859,7 @@ This endpoint returns a JSON like the following:
 }
 ```
 
-#### Availabilities
+##### Availabilities
 
 The following endpoint allows to know the available slots in a Calendar, given an Appointment Type. The availabilities algorithm takes into consideration the already scheduled appointments, the appointment type, dates, days and configured availability hours.
 
@@ -797,7 +873,7 @@ The current version the availabilities algorithm works as follows:
 - finally, it excludes the slots which already have the relative maximum number of concurrent appointments, or they don't satisfy the availabilityHours; if a slot is rejected, next processed slot will be the one after previous slot's _start date + duration + (padding after, if set)_;
 - valid, resulting, available slots are returned for the number of specified days.
 
-##### GET `/calendars/{id}/availabilities?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>&days=<days>`
+###### GET `/calendars/{id}/availabilities?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>&days=<days>`
 
 Get a JSON object with availabilities.
 
@@ -884,36 +960,26 @@ If the specified `appointmentType` parameter refers to an Appointment Type which
 ]
 ```
 
-#### Get Appointments
+##### Get Appointments
 
 Retrieve a list of JSON appointments set in the referenced Calendar.
 
-##### GET `/calendars/{id}/appointments[?fromDate=<start-date>&toDate=<end-date>&complete=<boolean>&q=<rql-string>]`
+###### GET `/calendars/{id}/appointments[?fromDate=<start-date>&toDate=<end-date>&complete=<boolean>]`
 
 Return a list of appointments.
 The available, optional, query params are the following:
 
 `fromDate`: UTC, ISO 8601 date string to start from in retrieving appointments; Default will be UTC now (at time of the call);
 
-`fromDate`: UTC, ISO 8601 date string to end retrieving appointments; Appointments set over this date are excluded from the listing;
+`toDate`: UTC, ISO 8601 date string to end retrieving appointments; Appointments set over this date are excluded from the listing;
 
 `complete`: include also already completed appointments; Default is false, it returns only not yet completed ones.
 
-`q`: a Resource Query Language (RQL) command as a string. Included to execute a query following the RQL specification.
+This endpoint also supports [RQL Queries](#rql-queries), [Pagination](#pagination) and [CSV export](#csv-format) URL query parameters.
 
-The RQL query string must follow the RQL specification. For example:
+#### Calendar Public Endpoints
 
-**GET `/calendars/{id}/appointments?q=eq(name,AppointmentA)`**
-
-return a list of appointments with name equal to `AppointmentA`;
-
-**GET `/calendars/{id}/appointments?q=matches(name,one)`**
-
-return a list of appointments where the name contains the word to `one`, used here as a regular expression.
-
-### Calendar Public Endpoints
-
-#### GET `/calendars/{id}?format=ical`
+##### GET `/calendars/{id}?format=ical`
 
 Get a Calendar in iCalendar format, only.
 
@@ -935,7 +1001,7 @@ Available query parameters are:
 
 ---
 
-## Appointment API
+### Appointment API
 
 The Appointment API allows to manage Appointments and actions on them.
 Private endpoints are authenticated.
@@ -953,30 +1019,17 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 
 > **IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.** >**IMPORTANT: API requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
 
-### Appointment Private Endpoints
+#### Appointment Private Endpoints
 
-#### CRUD
+##### Appointments CRUD
 
-##### GET `/appointments[?q=<rql-string>]`
+###### GET `/appointments`
 
 Returns a paginated list of appointments related to the specified account.
-The available, optional, query params are the following:
 
-`q`: a Resource Query Language (RQL) command as a string. Included to execute a query following the RQL specification.
+This endpoint also supports [RQL Queries](#rql-queries), [Pagination](#pagination) and [CSV export](#csv-format) URL query parameters.
 
-The RQL query string must follow the RQL specification.
-
-Some examples about usong RQL are:
-
-**GET `/appointments?q=eq(name,AppointmentA)`**
-
-return a list of appointments with name equal to `appointmentA`;
-
-**GET `/appointments?q=matches(name,one)`**
-
-return a list of appointments where the name contains the word to `one`, intended here as a regular expression.
-
-##### POST `/appointments[?sendEmails=true|false]`
+###### POST `/appointments[?sendEmails=true|false]`
 
 Create a new Appointment.
 
@@ -1040,11 +1093,11 @@ Examples of create an Appointment JSON body contents follows.
 }
 ```
 
-##### GET `/appointments/{id}`
+###### GET `/appointments/{id}`
 
 Get an appointment.
 
-##### DELETE `/appointments/{id}[?sendEmails=true|false]`
+###### DELETE `/appointments/{id}[?sendEmails=true|false]`
 
 Cancel and delete an Appointment.
 
@@ -1052,42 +1105,42 @@ The available, optional, query parameter is the following:
 
 `sendEmails`: to send or not the emails to the customer about the cancelled appointment. Admitted values are `true` and `false`. Default is `true`, emails are sent.
 
-#### Actions
+##### Actions
 
-##### POST `/appointments/{id}/actions/cancel[?sendEmails=true|false]`
+###### POST `/appointments/{id}/actions/cancel[?sendEmails=true|false]`
 
 Cancel an Appointment.
 The available, optional, query parameter is the following:
 
 `sendEmails`: to send or not the emails to the customer about the cancelled appointment. Admitted values are `true` and `false`. Default is `true`, emails are sent.
 
-### Appointment Public Endpoints
+#### Appointment Public Endpoints
 
 The following endpoints are intended to be sent and used by email to the customer.
 
 These endpoints always require a query param named `token`, which must be set with the token generated by Vivocha, included in emails, for example.
 
-#### DELETE `/appointments/{id}`
+##### DELETE `/appointments/{id}`
 
 Cancel an Appointment.
 
-#### GET `/appointments/{id}/actions/cancel`
+##### GET `/appointments/{id}/actions/cancel`
 
 Cancel an Appointment.
 
-#### GET `/appointments/{id}/actions/complete`
+##### GET `/appointments/{id}/actions/complete`
 
 Complete an Appointment.
 
-#### GET `/appointments/{id}/actions/ical`
+##### GET `/appointments/{id}/actions/ical`
 
 Get an Appointment in iCal format.
 
-#### GET `/appointments/{id}/actions/landing`
+##### GET `/appointments/{id}/actions/landing`
 
 Land to/join an Appointment.
 
-#### GET `/appointments/{id}/actions/check-status`
+##### GET `/appointments/{id}/actions/check-status`
 
 Return the status for an Appointment for a user joining it.
 The status is checked against the current time of the call and it returns a status according to user's early, ok, or late compared to the start/end date of the Appointment + configured validities.
@@ -1101,6 +1154,8 @@ It returns an object like the following:
 ```
 
 where `status` is a string that can be one of the following values: `OK`, `EARLY`, `LATE`, `CANCELLED`, or `COMPLETE`.
+
+---
 
 ## Interaction Engine Blocks
 
@@ -1128,9 +1183,9 @@ The other block settings to configure are the following:
 `<amount>[m | h | d]`, where:
 
 - `<amount>` is an integer number >= 1
-- `m` means _minutes_, then the resulting computation start date will be: _now + <amount> minutes_
-- `h` means _hours_, then the resulting computation start date will be: _now + <amount> hours_
-- `d` means _days_, then the resulting computation start date will be: _day of now + <amount> days_ but starting at the beginning of the day.
+- `m` means _minutes_, then the resulting computation start date will be: _now + `amount` minutes_
+- `h` means _hours_, then the resulting computation start date will be: _now + `amount` hours_
+- `d` means _days_, then the resulting computation start date will be: _day of now + `amount` days_ but starting at the beginning of the day.
 
 #### Examples
 
@@ -1214,3 +1269,9 @@ The `location` property is an object like the following:
   city: "<string>"
 }
 ```
+
+---
+
+Feel free to report an error in the documentation, a typo or missing documentation opening an issue in this repo.
+
+Thank you.
