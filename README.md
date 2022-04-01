@@ -465,6 +465,8 @@ Get a list of Calendars.
 
 This endpoint also supports [RQL Queries](#rql-queries), [Pagination](#pagination) and [CSV export](#csv-format) URL query parameters.
 
+---
+
 ##### POST `/calendars`
 
 Create a new Calendar.
@@ -769,6 +771,8 @@ Example of JSON body:
 }
 ```
 
+---
+
 ##### GET `/calendars/{id}`
 
 Get a specific Calendar in JSON.
@@ -785,9 +789,13 @@ Available query parameters are:
 
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. This parameter takes effect only when `format` parameter is set to `ical`. If set to false or not specified, then the event doesn't include the padding in the iCalendar format
 
+---
+
 ##### PUT `/calendars/{id}`
 
 Edit/update a Calendar. Body must be a full Calendar JSON, like in POST (create) request.
+
+---
 
 ##### PATCH `/calendars/{id}`
 
@@ -821,22 +829,28 @@ Another example, referencing an array item (an Appointment Type to change the `p
 ]
 ```
 
+---
+
 ##### DELETE `/calendars/{id}`
 
 Delete a Calendar.
+
+---
 
 ##### GET `/calendars/{id}/actions/get-ical-url`
 
 Return an object containing the Calendar complete URL endpoint to be used to download it in iCalendar format, or to be used to subscribe to the Calendar by a Calendar application client.
 The returned URL contains a `token` parameter already set.
 
-This endpoint returns a JSON like the following:
+This endpoint **DO NOT** accept any query parameter and it returns a JSON like the following:
 
 ```json
 {
   "url": "https://www.vivocha.com/.../.../calendars/..."
 }
 ```
+
+---
 
 ##### GET `/calendars/{id}/actions/is-slot-available?appointmentType=<appointment-type-name>&startDate=<UTC-start-date>`
 
@@ -857,6 +871,8 @@ This endpoint returns a JSON like the following:
   "isAvailable": true
 }
 ```
+
+---
 
 ##### Availabilities
 
@@ -959,6 +975,8 @@ If the specified `appointmentType` parameter refers to an Appointment Type which
 ]
 ```
 
+---
+
 ##### Get Appointments
 
 Retrieve a list of JSON appointments set in the referenced Calendar.
@@ -975,6 +993,8 @@ The available, optional, query params are the following:
 `complete`: include also already completed appointments; Default is false, it returns only not yet completed ones.
 
 This endpoint also supports [RQL Queries](#rql-queries), [Pagination](#pagination) and [CSV export](#csv-format) URL query parameters.
+
+---
 
 #### Calendar Public Endpoints
 
@@ -1025,6 +1045,8 @@ Full, parsable, API documentation is always available in OpenAPI 3.x format at U
 Returns a paginated list of appointments related to the specified account.
 
 This endpoint also supports [RQL Queries](#rql-queries), [Pagination](#pagination) and [CSV export](#csv-format) URL query parameters.
+
+---
 
 ##### POST `/appointments[?sendEmails=true|false]`
 
@@ -1090,9 +1112,13 @@ Examples of create an Appointment JSON body contents follows.
 }
 ```
 
+---
+
 ##### GET `/appointments/{id}`
 
 Get an appointment.
+
+---
 
 ##### DELETE `/appointments/{id}[?sendEmails=true|false]`
 
@@ -1102,6 +1128,8 @@ The available, optional, query parameter is the following:
 
 `sendEmails`: to send or not the emails to the customer about the cancelled appointment. Admitted values are `true` and `false`. Default is `true`, emails are sent.
 
+---
+
 ##### Actions
 
 ##### POST `/appointments/{id}/actions/cancel[?sendEmails=true|false]`
@@ -1110,6 +1138,8 @@ Cancel an Appointment.
 The available, optional, query parameter is the following:
 
 `sendEmails`: to send or not the emails to the customer about the cancelled appointment. Admitted values are `true` and `false`. Default is `true`, emails are sent.
+
+---
 
 #### Appointment Public Endpoints
 
@@ -1121,21 +1151,31 @@ These endpoints always require a query param named `token`, which must be set wi
 
 Cancel an Appointment.
 
+---
+
 ##### GET `/appointments/{id}/actions/cancel`
 
 Cancel an Appointment.
+
+---
 
 ##### GET `/appointments/{id}/actions/complete`
 
 Complete an Appointment.
 
+---
+
 ##### GET `/appointments/{id}/actions/ical`
 
 Get an Appointment in iCal format.
 
+---
+
 ##### GET `/appointments/{id}/actions/landing`
 
 Land to/join an Appointment.
+
+---
 
 ##### GET `/appointments/{id}/actions/check-status`
 
