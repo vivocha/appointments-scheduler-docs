@@ -842,7 +842,7 @@ Delete a Calendar.
 Return an object containing the Calendar complete URL endpoint to be used to download it in iCalendar format, or to be used to subscribe to the Calendar by a Calendar application client.
 The returned URL contains a `token` parameter already set.
 
-This endpoint **DO NOT** accept any query parameter and it returns a JSON like the following:
+This endpoint **DOES NOT** accept any query parameter and it returns a JSON like the following:
 
 ```json
 {
