@@ -40,6 +40,7 @@ _version 2.5.0_ - last update: _29/03/2022_
   - [Set Appointment](#set-appointment)
 
 ---
+
 ---
 
 ## Overview
@@ -416,7 +417,7 @@ Some API endpoints allows to list resources (like Calendars and Appointments) us
 
 **`format=csv`**: this query parameter enables the export in CSV format, its value is always set to `csv` and MUST BE used in conjunction with the `csv_fields` parameter;
 
-**`csv_fields`**: mandatory for CSV format, it is an array of resource fields to include in the csv. E.g.:  csv_fields=summary,code,context.type;
+**`csv_fields`**: mandatory for CSV format, it is an array of resource fields to include in the csv. E.g.: csv_fields=summary,code,context.type;
 
 **`csv_names`**: CSV custom field names, an array to modify the names of the exported csv fields;
 
@@ -431,7 +432,7 @@ Some API endpoints allows to list resources (like Calendars and Appointments) us
 - `header`: boolean, include header with field names
 - `quotes`: boolean, quote all values
 - `filename`: strng, download as filename. E.g., `filename=appointments.csv`.
-  
+
 **Example of a query string containing an export in csv**:
 
 `?format=csv&csv_fields=code,summary,context.type&csv_names=Code,Summary,Context Type&csv_options=header=true,separator=;,filename=appointments.csv`
@@ -1017,6 +1018,8 @@ Available query parameters are:
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. If set to false or not specified, then the event doesn't include the padding in the iCalendar format;
 
 `complete`: optional, if set to `true`, include also already completed appointments in the returned iCalendar. If set to false or not specified, then already completed appointments are not included.
+
+> **IMPORTANT: Use of iCalendar web clients is not recommended as they have a non-configurable refresh rate, set in many cases to 12-24h, which is not a suitable scenario to be always updated about the appointments. Please, use a non-web client app for better user experience.**
 
 ---
 
