@@ -782,15 +782,15 @@ If `format` query parameter is used and set to `ical`, then the Calendar will be
 
 Available query parameters are:
 
-`format=ical`: if specified return the Calendar in iCal format. In that case use `from` and `to` parameters to specify a time range to include appointments set in;
+`format=ical`: if specified return the Calendar in iCal format. In that case use the `from` and `to` parameters to specify a time range to include appointments set in; or, `offsetPast` and `offsetFuture` query params can be used as day-based offsets to specify the range. For example `offsetFuture` can replace the to parameter and can be used with `from` to set a range of days. If only `offsetFuture` and `offsetPast` are defined, then the range starts from `now - offsetPast` until `now + offsetFuture`, expressed in days. Remember: `from`, `to`, `offsetPast` and `offsetFuture` query params **cannot be used all together**;
 
 `from`: UTC ISO 8601 date string to include appointments set starting from that date;
 
 `to`: UTC ISO 8601 date string to including appointments set before that date;
 
-`offsetPast`: positive integer, number of days to subtract to the `from` param as the start date to get the Calendar events. If `from` is not specified then days will be subtracted to the current (_now_) date and hour. Used only when `format=ical`;
+`offsetPast`: positive integer, number of days to subtract to the `from` param as the start date to get the Calendar events. If `from` is not specified then days will be subtracted to the current _now_ date and hour. Used only when `format=ical`;
 
-`offsetFuture`: positive integer, number of days to add to the `to` param as the end date to which get the Calendar events'. If `to` is not specified then days will be added to the current (_now_) date and hour. Used only when `format=ical`;
+`offsetFuture`: positive integer, number of days to add to the `from` param as the end date to which get the Calendar events. If `from` is not specified then days will be added to the current _now_ date and hour. **Cannot be used with to param**. Used only when `format=ical`;
 
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. This parameter takes effect only when `format` parameter is set to `ical`. If set to false or not specified, then the event doesn't include the padding in the iCalendar format
 
@@ -1011,7 +1011,7 @@ This endpoint requires a valid `token` parameter. To get the endopoint URL with 
 
 Available query parameters are:
 
-`format=ical`: mandatory, and it must be set to `ical`. Use optional `from` and `to` parameters to specify a time range to include appointments set in;
+`format=ical`: mandatory, and it must be set to `ical`. Use the `from` and `to` parameters to specify a time range to include appointments set in; or, `offsetPast` and `offsetFuture` query params can be used as day-based offsets to specify the range. For example `offsetFuture` can replace the to parameter and can be used with `from` to set a range of days. If only `offsetFuture` and `offsetPast` are defined, then the range starts from `now - offsetPast` until `now + offsetFuture`, expressed in days. Remember: `from`, `to`, `offsetPast` and `offsetFuture` query params **cannot be used all together**;
 
 `token`: mandatory, authorization token, call the `/calendars/{id}/actions/get-ical-url` API endpoint to obtain it, along with the complete Calendar URL to call (see [Calendar API Private Endpoints](#calendar-private-endpoints));
 
@@ -1019,9 +1019,9 @@ Available query parameters are:
 
 `to`: optional, UTC ISO 8601 date string to including appointments set before that date; if parameter isn't provided, `to` is computed as `from + 1 month`;
 
-`offsetPast`: optional, positive integer. The number of days to subtract to the `from` param as the start date to get the Calendar events. If `from` is not specified then days will be subtracted to the current (_now_) date and hour. Used only when query parameter `format=ical`;
+`offsetPast`: optional, positive integer. The number of days to subtract to the `from` param as the start date to get the Calendar events. If `from` is not specified then days will be subtracted to the current _now_ date and hour. Used only when `format=ical`;
 
-`offsetFuture`: optional, positive integer. The number of days to add to the `to` param as the end date to which get the Calendar events'. If `to` is not specified then days will be added to the current (_now_) date and hour. Used only when query parameter `format=ical`;
+`offsetFuture`: optional, positive integer. The number of days to add to the `from` param as the end date to which get the Calendar events. If `from` is not specified then days will be added to the current _now_ date and hour. **Cannot be used with to param**. Used only when `format=ical`;
 
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. If set to false or not specified, then the event doesn't include the padding in the iCalendar format;
 
