@@ -788,6 +788,10 @@ Available query parameters are:
 
 `to`: UTC ISO 8601 date string to including appointments set before that date;
 
+`offsetPast`: number of days to subtract to the `from` param as the start date to get the Calendar events. If `from` is not specified then days will be subtracted to the current (_now_) date and hour. Used only when `format=ical`, minimum value is 0;
+
+`offsetFuture`: number of days to add to the `to` param as the end date to which get the Calendar events'. If `to` is not specified then days will be added to the current (_now_) date and hour. Used only when `format=ical`, minimum value is 0;
+
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. This parameter takes effect only when `format` parameter is set to `ical`. If set to false or not specified, then the event doesn't include the padding in the iCalendar format
 
 ---
@@ -1014,6 +1018,10 @@ Available query parameters are:
 `from`: optional, UTC ISO 8601 date string to include appointments set starting from that date; if parameter isn't provided, then UTC _now_ is used;
 
 `to`: optional, UTC ISO 8601 date string to including appointments set before that date; if parameter isn't provided, `to` is computed as `from + 1 month`;
+
+`offsetPast`: optional, minimum value is 0. The number of days to subtract to the `from` param as the start date to get the Calendar events. If `from` is not specified then days will be subtracted to the current (_now_) date and hour. Used only when query parameter `format=ical`;
+
+`offsetFuture`: optional, minimum value is 0. The number of days to add to the `to` param as the end date to which get the Calendar events'. If `to` is not specified then days will be added to the current (_now_) date and hour. Used only when query parameter `format=ical`;
 
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. If set to false or not specified, then the event doesn't include the padding in the iCalendar format;
 
