@@ -790,7 +790,7 @@ Available query parameters are:
 
 `offsetPast`: positive integer, number of days to subtract to the `from` param as the start date to get the Calendar events. If `from` is not specified then days will be subtracted to the current _now_ date and hour. Used only when `format=ical`;
 
-`offsetFuture`: positive integer, number of days to add to the `from` param as the end date to which get the Calendar events. If `from` is not specified then days will be added to the current _now_ date and hour. **Cannot be used with to param**. Used only when `format=ical`;
+`offsetFuture`: positive integer, number of days to add to the `from` param as the end date to which get the Calendar events. If `from` is not specified then days will be added to the current _now_ date and hour. **Cannot be used with `to` param**. Used only when `format=ical`;
 
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. This parameter takes effect only when `format` parameter is set to `ical`. If set to false or not specified, then the event doesn't include the padding in the iCalendar format
 
@@ -1021,7 +1021,7 @@ Available query parameters are:
 
 `offsetPast`: optional, positive integer. The number of days to subtract to the `from` param as the start date to get the Calendar events. If `from` is not specified then days will be subtracted to the current _now_ date and hour. Used only when `format=ical`;
 
-`offsetFuture`: optional, positive integer. The number of days to add to the `from` param as the end date to which get the Calendar events. If `from` is not specified then days will be added to the current _now_ date and hour. **Cannot be used with to param**. Used only when `format=ical`;
+`offsetFuture`: optional, positive integer. The number of days to add to the `from` param as the end date to which get the Calendar events. If `from` is not specified then days will be added to the current _now_ date and hour. **Cannot be used with `to` param**. Used only when `format=ical`;
 
 `padding`: optional, if set to `true`, include padding in events total duration in the returned iCalendar format; total duration of the event will be event duration + padding. If set to false or not specified, then the event doesn't include the padding in the iCalendar format;
 
