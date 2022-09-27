@@ -357,9 +357,7 @@ After an Appointment has been created and set, it has a set of properties that r
 
 The Appointments Scheduler API is divided into two sets: the **Calendar API** and the **Appointment API**, which in turn contain the **private endpoints** and the **public endpoints**.
 
-> **IMPORTANT: ALL dates in API call responses are UTC based and in a valid date-time ISO 8601 format. ALL dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
-
-> **IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
+> **IMPORTANT: ALL dates in API call responses are UTC based and in a valid date-time ISO 8601 format. ALL dates in API requests MUST BE UTC based and in ISO 8601 format, always.** > **IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
 
 Some API endpoints **have limitations** (i.e., listing endpoints) on the number of returned resources. Where explicitely written, then you must use pagination to retrieve all the resources you need.
 
@@ -1125,6 +1123,34 @@ Examples of create an Appointment JSON body contents follows.
 
 ---
 
+##### PATCH `/appointments/{id}`
+
+Update specific properties of an Appointment.
+JSON body to patch an appointment
+
+```json
+[
+  {
+    "op": "replace",
+    "path": "/context/data",
+    "value": {
+      "email": "rossi@blablablabla.com",
+      "name": "test patch 5",
+      "company": "Super Company",
+      "team": "dev team",
+      "microteam": "dev"
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/summary",
+    "value": "An edited appoiintment"
+  }
+]
+```
+
+---
+
 ##### GET `/appointments/{id}`
 
 Get an appointment.
@@ -1217,9 +1243,7 @@ All API endpoints accept JSON bodies, when applicable. Most of them return respo
 
 `https://{vivocha-world}.vivocha.com/a/{account}/api/v3/openapi.json`
 
-> **IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.**
-
-> **IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
+> **IMPORTANT: all dates in API call responses are UTC based and in a valid date-time ISO 8601 format. All dates in API requests MUST BE UTC based and in ISO 8601 format, always.** > **IMPORTANT: requests that require a JSON body, must set the HTTP request header `Content-Type: application/json`**
 
 ### Stats Private Endpoints
 
