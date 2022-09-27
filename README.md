@@ -1126,7 +1126,8 @@ Examples of create an Appointment JSON body contents follows.
 ##### PATCH `/appointments/{id}`
 
 Update specific properties of an Appointment.
-JSON body to patch an appointment
+
+##### JSON body to patch an appointment
 
 ```json
 [
