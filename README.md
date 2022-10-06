@@ -6,7 +6,7 @@
 | :-----------------------------------------------------------------------------------------------: |
 |                                                                                                   |
 
-_version 2.6.1_ - last update: _31/07/2022_
+_version 3.1.3_ - last update: _06/10/2022_
 
 ---
 
@@ -239,6 +239,7 @@ In case of an Appointment Type of `online` type, `settings` are the following:
 | `exclusiveAgents` | (optional) array of strings | an array of exclusive agents Ids (currently not used)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `emailConfig`     | (optional) an object        | Email configuration for the particular Appointment Type. **If specified, it overrides the Calendar `email` configuration**. Likewise the [Calendar Email Configuration](#email-configuration), it is an object with the following properties: `senderAddress`, `ccAddresses` (optional), `bccAddresses` (optional) and `template` (optional). If `template` property is specified, then it is an object that can have two main properties: 1) `templateName`, mandatory, is an object with the following properties (all optional): `customerNewAppointment`, `customerCancelAppointment`, `agentNewAppointment` (currently not used), `agentCancelAppointment` (currently not used), `customerRemindAppointment`, `customerLandingRemindAppointment`, `agentRemindAppointment` (currently not used). Each of these properties are object with a language string as a key (e.g., `en`, `it`), and a corresponding registered AWS SES template name. If a template is not configured for a given calendar language, then english is used. 2) `templateData` (optional), an object representing the data to be sent in emails and must match the data keys referenced by AWS SES registered templates (currently not used). |
 | `landingPageUrl`  | (optional) string           | URL of the appointment landing/joining page for customers, if specified it overrides that specific property in Calendar configuration                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `actionHandlers`  | (optional) object           | the properties of this configuration objects represents URL of external endpoints that, if set, the Vivocha Appointments Scheduler will call in HTTP POST for every step in the Appointment lifecycle, to eventually notify an external system. Properties are (all optional): `setupURL`, URL string to call in POST when an external Appointment is created; `cancelURL`: the URL to call in POST when a customer cancels an Appointment; `rescheduleURL`, the URL to call when an appointment is re-scheduled (currently not used)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 ---
 
@@ -258,8 +259,8 @@ In case of an Appointment Type of `external` type, `settings` are the following,
 
 - doing a HTTP **`POST`** to configured URL
 - with **JSON body**:
-  - on appointment creation: `{ event: 'new', code: <appointment_code>, fromDate: <UTC-ISO 8601 start date-time>, toDate: <UTC-ISO 8601 end date-time> }`;
-  - on appointment cancelling: `{ event: 'cancel', code: <appointment_code>, fromDate: <UTC-ISO 8601 start date-time>, toDate: <UTC-ISO 8601 end date-time> }`.
+  - on appointment creation: `{ event: 'new', id: <appointment__id>, code: <appointment_code>, type: <appointment_type>, timezone: <appointment_timezone || calendar_timezone || 'Europe/Rome', calendarId: <appointment_calendarId>, fromDate: <UTC-ISO 8601 start date-time>, toDate: <UTC-ISO 8601 end date-time> }`;
+  - on appointment cancelling: `{ event: 'cancel', id: <appointment__id>, code: <appointment_code>, type: <appointment_type>, timezone: <appointment_timezone || calendar_timezone || 'Europe/Rome', calendarId: <appointment_calendarId>, fromDate: <UTC-ISO 8601 start date-time>, toDate: <UTC-ISO 8601 end date-time> }`.
 
 ###### Appointment Location Settings
 
@@ -381,7 +382,7 @@ The API endpoints that explicitely support pagination (like listing operations, 
 
 #### Pagination URL Query Parameters
 
-**`limit`**: integer number to limit the number of results to return;
+**`limit`**: integer number to limit the number of results to return. Default limit is now set to `50`;
 
 **`skip`**: integer, the number of elements to skip in the returned list of results; used with the `limit` parameter it allows to paginate the results. The response HTTP headers below return info about pagination.
 
@@ -803,7 +804,10 @@ Edit/update a Calendar. Body must be a full Calendar JSON, like in POST (create)
 ##### PATCH `/calendars/{id}`
 
 Update single properties of a Calendar.
-Example of a body request:
+
+> **IMPORTANT: doing a PATCH to an entire property of object type is NOT recommended and in some cases is NOT permitted.**
+>
+> Example of a body request:
 
 ```json
 [
@@ -1126,6 +1130,8 @@ Examples of create an Appointment JSON body contents follows.
 ##### PATCH `/appointments/{id}`
 
 Update specific properties of an Appointment.
+
+> **IMPORTANT: doing a PATCH to an entire property of object type (e.g., context or state) is NOT recommended and in some cases is NOT permitted.**
 
 ##### JSON body to patch an appointment
 
