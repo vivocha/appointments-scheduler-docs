@@ -416,7 +416,7 @@ Some API endpoints allows to list resources (like Calendars and Appointments) us
 
 **`format=csv`**: this query parameter enables the export in CSV format, its value is always set to `csv` and MUST BE used in conjunction with the `csv_fields` parameter;
 
-**`csv_fields`**: mandatory for CSV format, it is an array of resource fields to include in the csv. E.g.: csv_fields=summary,code,context.type;
+**`csv_fields`**: mandatory for CSV format, it is an array of resource fields to include in the csv. Please note that object type properties cannot be displayed. Use `.` to include their single property fields. E.g.: csv_fields=summary,code,context.type;
 
 **`csv_names`**: CSV custom field names, an array to modify the names of the exported csv fields;
 
@@ -435,6 +435,12 @@ Some API endpoints allows to list resources (like Calendars and Appointments) us
 **Example of a query string containing an export in csv**:
 
 `?format=csv&csv_fields=code,summary,context.type&csv_names=Code,Summary,Context Type&csv_options=header=true,separator=;,filename=appointments.csv`
+
+**Another example of a query string containing an export in csv specifying `state.cancelled` object properties**:
+
+`?format=csv&csv_fields=code,summary,context.type,state.cancelled.by,state.cancelled.ts&csv_names=Code,Summary,Context Type,Cancelled by,Cancelled at&csv_options=header=true,separator=;,filename=appointments.csv`
+
+> **IMPORTANT: if an optional property is not included in the appointment record, then its field value in the csv file will result as an empty cell in the csv column.**
 
 ---
 
